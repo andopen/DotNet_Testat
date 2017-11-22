@@ -8,16 +8,16 @@ namespace AutoReservation.Dal.Entities
 {
     public class Kunde
     {
-        DateTime Geburtsdatum { get; set; }
+        public DateTime Geburtsdatum { get; set; }
         [Key]
-        int Id { get; set; }
-        string Nachname { get; set; }
-        byte RowVersion { get; set; }
-        string Vorname { get; set; }
+        public int Id { get; set; }
+        public string Nachname { get; set; }
+        public byte RowVersion { get; set; }
+        public string Vorname { get; set; }
 
         [Timestamp]
         public byte[] Timestamp { get; set; }
         [ForeignKey("Reservationen")]
-        ICollection<Reservation> Reservationen { get; set; }
+        public ICollection<Reservation> Reservationen { get; set; }
     }
 }

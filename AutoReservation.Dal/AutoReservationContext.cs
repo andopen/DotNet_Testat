@@ -30,8 +30,12 @@ namespace AutoReservation.Dal
             // Use this for real "code first" 
             //      - Database will be created by Entity Framework
             //      - Database will be modified by Entity Framework
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<AutoReservationContext, Configuration>());
+
+        Database.SetInitializer(new MigrateDatabaseToLatestVersion<AutoReservationContext, Configuration>());
         }
+        public DbSet<Auto> Autos { get; set; }
+        public DbSet<Kunde> Kunden { get; set; }
+        public DbSet<Reservation> Reservationen { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

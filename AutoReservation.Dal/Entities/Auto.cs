@@ -9,28 +9,28 @@ namespace AutoReservation.Dal.Entities
     public abstract class Auto
     {
         [Key]
-        int Id { get; set; }
-        string Marke { get; set; }
-        byte RowVersion { get; set; }
-        int Tagestarif { get; set; }
+        public int Id { get; set; }
+        public string Marke { get; set; }
+        public byte RowVersion { get; set; }
+        public int Tagestarif { get; set; }
         [ForeignKey("Reservationen")]
-        ICollection<Reservation> Reservationen{get; set;}
+        public ICollection<Reservation> Reservationen{get; set;}
 
         [Timestamp]
         public byte[] Timestamp { get; set; }
 
     }
-    class StandardAuto : Auto
+    public class StandardAuto : Auto
     {
 
     }
 
-    class LuxusklasseAuto : Auto
+    public class LuxusklasseAuto : Auto
     {
-        int Basistarif { get; set; }
+        public int Basistarif { get; set; }
     }
 
-    class MittelklasseAuto : Auto
+    public class MittelklasseAuto : Auto
     {
 
     }
