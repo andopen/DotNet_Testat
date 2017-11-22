@@ -6,7 +6,7 @@ using System.Data.Entity;
 
 namespace AutoReservation.Dal.Entities
 {
-    public class Auto
+    public abstract class Auto
     {
         [Key]
         int Id { get; set; }
@@ -19,6 +19,19 @@ namespace AutoReservation.Dal.Entities
         [Timestamp]
         public byte[] Timestamp { get; set; }
 
-        //AutoKlassen fehlen noch
+    }
+    class StandardAuto : Auto
+    {
+
+    }
+
+    class LuxusklasseAuto : Auto
+    {
+        int Basistarif { get; set; }
+    }
+
+    class MittelklasseAuto : Auto
+    {
+
     }
 }
