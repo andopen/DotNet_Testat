@@ -9,38 +9,38 @@ using AutoReservation.Dal.Entities;
 namespace AutoReservation.BusinessLayer
 {
     public class AutoManager
-        : ManagerBase<Auto>
+        : ManagerBase
     {
-        public override List<Auto> List
+        public List<Auto> List
         {
             get
             {
                 using (AutoReservationContext context = new AutoReservationContext())
                 {
                     return context.Autos.ToList();
+
                 }
             }
         }
 
-        public override Auto GetById(int id)
+        public Auto GetById(int id)
         {
             return null;
         }
 
-        public override Auto Insert(Auto auto)
+        public Auto Insert(Auto auto)
         {
             return null;
         }
 
-        public override Auto Update(Auto auto)
+        public Auto Update(Auto auto)
         {
             return null;
         }
 
-        public override void Delete(Auto auto)
+        public void Delete(Auto auto)
         {
 
         }
     }
 }
- 
