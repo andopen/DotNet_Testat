@@ -9,9 +9,9 @@ using AutoReservation.Dal.Entities;
 namespace AutoReservation.BusinessLayer
 {
     public class KundeManager
-        : ManagerBase
+        : ManagerBase<Kunde>
     {
-        public List<Kunde> AllKunden
+        public override List<Kunde> List
         {
             get
             {
@@ -22,22 +22,22 @@ namespace AutoReservation.BusinessLayer
             }
         }
 
-        public Kunde GetKundeById(int id)
+        public override Kunde GetById(int id)
         {
             return null;
         }
 
-        public Kunde InsertKunde(Kunde kunde)
+        public override Kunde Insert(Kunde kunde)
         {
             return null;
         }
 
-        public Kunde UpdateKunde(Kunde kunde)
+        public override Kunde Update(Kunde kunde)
         {
             return null;
         }
 
-        public void DeleteKunde(Kunde kunde)
+        public override void Delete(Kunde kunde)
         {
 
         }

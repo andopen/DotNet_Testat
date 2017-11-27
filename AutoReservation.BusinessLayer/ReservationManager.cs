@@ -9,9 +9,9 @@ using AutoReservation.Dal.Entities;
 namespace AutoReservation.BusinessLayer
 {
     public class ReservationManager
-        : ManagerBase
+        : ManagerBase<Reservation>
     {
-        public List<Reservation> AllReservationen
+        public override List<Reservation> List
         {
             get
             {
@@ -22,22 +22,22 @@ namespace AutoReservation.BusinessLayer
             }
         }
 
-        public Reservation GetReservationByNr(int reservationsNr)
+        public override Reservation GetById(int reservationsNr)
         {
             return null;
         }
 
-        public Reservation InsertReservation(Reservation reservation)
+        public override Reservation Insert(Reservation reservation)
         {
             return null;
         }
 
-        public Reservation UpdateReservation(Reservation reservation)
+        public override Reservation Update(Reservation reservation)
         {
             return null;
         }
 
-        public void DeleteReservation(Reservation reservation)
+        public override void Delete(Reservation reservation)
         {
 
         }

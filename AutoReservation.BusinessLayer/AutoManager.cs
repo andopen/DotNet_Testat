@@ -9,9 +9,9 @@ using AutoReservation.Dal.Entities;
 namespace AutoReservation.BusinessLayer
 {
     public class AutoManager
-        : ManagerBase
+        : ManagerBase<Auto>
     {
-        public List<Auto> AllAutos
+        public override List<Auto> List
         {
             get
             {
@@ -22,22 +22,22 @@ namespace AutoReservation.BusinessLayer
             }
         }
 
-        public Auto GetAutoById(int id)
+        public override Auto GetById(int id)
         {
             return null;
         }
 
-        public Auto InsertAuto(Auto auto)
+        public override Auto Insert(Auto auto)
         {
             return null;
         }
 
-        public Auto UpdateAuto(Auto auto)
+        public override Auto Update(Auto auto)
         {
             return null;
         }
 
-        public void DeleteAuto(Auto auto)
+        public override void Delete(Auto auto)
         {
 
         }
