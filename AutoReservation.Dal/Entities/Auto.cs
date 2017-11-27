@@ -1,24 +1,37 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 
+
 namespace AutoReservation.Dal.Entities
 {
-    public class Auto
+    public abstract class Auto
     {
+        [Key]
         public int Id { get; set; }
         public string Marke { get; set; }
+        public byte RowVersion { get; set; }
         public int Tagestarif { get; set; }
-        public byte[] RowVersion { get; set; }
+        [ForeignKey("Reservationen")]
+        public ICollection<Reservation> Reservationen{get; set;}
+
+        [Timestamp]
+        public byte[] Timestamp { get; set; }
+
+    }
+    public class StandardAuto : Auto
+    {
+
     }
 
-    public partial class LuxusklasseAuto : Auto
+    public class LuxusklasseAuto : Auto
     {
         public int Basistarif { get; set; }
     }
 
-    public partial class MittelklasseAuto : Auto { }
+    public class MittelklasseAuto : Auto
+    {
 
-    public partial class StandardAuto : Auto { }
-
+    }
 }
