@@ -5,5 +5,13 @@ using System.Data.Entity;
 
 namespace AutoReservation.Dal.Entities
 {
-  
+    public class Kunde
+    {
+        public int Id { get; set; }
+        public string Nachname { get; set; }
+        public string Vorname { get; set; }
+        public System.DateTime Geburtsdatum { get; set; }
+        public byte[] RowVersion { get; set; }
+
+    }
 }
