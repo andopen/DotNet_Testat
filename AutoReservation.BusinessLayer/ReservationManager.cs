@@ -22,7 +22,7 @@ namespace AutoReservation.BusinessLayer
             }
         }
 
-        public Reservation GetReservationByReservationNr(int reservationNr)
+        public Reservation GetReservationByNr(int reservationsNr)
         {
             return null;
         }
