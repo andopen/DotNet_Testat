@@ -121,19 +121,48 @@ namespace AutoReservation.Service.Wcf
         public AutoDto InsertAuto(AutoDto auto)
         {
             WriteActualMethod();
-            return AutoManager.Insert(auto.ConvertToEntity()).ConvertToDto();
+            try
+            {
+                return AutoManager.Insert(auto.ConvertToEntity()).ConvertToDto();
+            }
+            catch (OptimisticConcurrencyException<Auto> ex)
+            {
+                throw new FaultException<OptimisticConcurrencyFault<AutoDto>>(new OptimisticConcurrencyFault<AutoDto>(ex.MergedEntity.ConvertToDto()), ex.Message);
+            }
         }
 
         public KundeDto InsertKunde(KundeDto kunde)
         {
             WriteActualMethod();
-            return KundeManager.Insert(kunde.ConvertToEntity()).ConvertToDto();
+            try
+            {
+                return KundeManager.Insert(kunde.ConvertToEntity()).ConvertToDto();
+            }
+            catch (OptimisticConcurrencyException<Kunde> ex)
+            {
+                throw new FaultException<OptimisticConcurrencyFault<KundeDto>>(new OptimisticConcurrencyFault<KundeDto>(ex.MergedEntity.ConvertToDto()), ex.Message);
+            }
         }
 
         public ReservationDto InsertReservation(ReservationDto reservation)
         {
             WriteActualMethod();
-            return ReservationManager.Insert(reservation.ConvertToEntity()).ConvertToDto();
+            try
+            {
+                return ReservationManager.Insert(reservation.ConvertToEntity()).ConvertToDto();
+            }
+            catch (OptimisticConcurrencyException<Reservation> ex)
+            {
+                throw new FaultException<OptimisticConcurrencyFault<ReservationDto>>(new OptimisticConcurrencyFault<ReservationDto>(ex.MergedEntity.ConvertToDto()), ex.Message);
+            }
+            catch (InvalidDateRangeException ex)
+            {
+                throw new FaultException<InvalidDateRangeFault>(new InvalidDateRangeFault(), ex.Message);
+            }
+            catch (AutoUnavailableException ex)
+            {
+                throw new FaultException<AutoUnavailableFault>(new AutoUnavailableFault(), ex.Message);
+            }
         }
 
         public AutoDto UpdateAuto(AutoDto auto)
@@ -172,6 +201,14 @@ namespace AutoReservation.Service.Wcf
             catch (OptimisticConcurrencyException<Reservation> ex)
             {
                 throw new FaultException<OptimisticConcurrencyFault<ReservationDto>>(new OptimisticConcurrencyFault<ReservationDto>(ex.MergedEntity.ConvertToDto()), ex.Message);
+            }
+            catch (InvalidDateRangeException ex)
+            {
+                throw new FaultException<InvalidDateRangeFault>(new InvalidDateRangeFault(), ex.Message);
+            }
+            catch (AutoUnavailableException ex)
+            {
+                throw new FaultException<AutoUnavailableFault>(new AutoUnavailableFault(), ex.Message);
             }
         }
     }
