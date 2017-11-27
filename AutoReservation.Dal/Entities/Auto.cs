@@ -11,13 +11,11 @@ namespace AutoReservation.Dal.Entities
         [Key]
         public int Id { get; set; }
         public string Marke { get; set; }
-        public byte RowVersion { get; set; }
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
         public int Tagestarif { get; set; }
         [ForeignKey("Reservationen")]
         public ICollection<Reservation> Reservationen{get; set;}
-
-        [Timestamp]
-        public byte[] Timestamp { get; set; }
 
     }
     public class StandardAuto : Auto

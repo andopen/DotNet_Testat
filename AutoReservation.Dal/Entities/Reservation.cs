@@ -12,11 +12,10 @@ namespace AutoReservation.Dal.Entities
         [ForeignKey("KundenId")]
         public int KundeId { get; set; }
         public int ReservationsNr { get; set; }
-        public byte RowVersion { get; set; }
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
         public DateTime Von { get; set; }
 
-        [Timestamp]
-        public byte[] Timestamp { get; set; }
     }
     
 }
