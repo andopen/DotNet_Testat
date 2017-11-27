@@ -11,36 +11,36 @@ namespace AutoReservation.BusinessLayer
     public class AutoManager
         : ManagerBase
     {
-        public List<Auto> AllAutos
+        public List<Auto> List
         {
             get
             {
                 using (AutoReservationContext context = new AutoReservationContext())
                 {
                     return context.Autos.ToList();
+
                 }
             }
         }
 
-        public Auto GetAutoById(int id)
+        public Auto GetById(int id)
         {
             return null;
         }
 
-        public Auto InsertAuto(Auto auto)
+        public Auto Insert(Auto auto)
         {
             return null;
         }
 
-        public Auto UpdateAuto(Auto auto)
+        public Auto Update(Auto auto)
         {
             return null;
         }
 
-        public void DeleteAuto(Auto auto)
+        public void Delete(Auto auto)
         {
 
         }
     }
 }
- 

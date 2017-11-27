@@ -11,7 +11,7 @@ namespace AutoReservation.BusinessLayer
     public class KundeManager
         : ManagerBase
     {
-        public List<Kunde> AllKunden
+        public List<Kunde> List
         {
             get
             {
@@ -22,22 +22,22 @@ namespace AutoReservation.BusinessLayer
             }
         }
 
-        public Kunde GetKundeById(int id)
+        public Kunde GetById(int id)
         {
             return null;
         }
 
-        public Kunde InsertKunde(Kunde kunde)
+        public Kunde Insert(Kunde kunde)
         {
             return null;
         }
 
-        public Kunde UpdateKunde(Kunde kunde)
+        public Kunde Update(Kunde kunde)
         {
             return null;
         }
 
-        public void DeleteKunde(Kunde kunde)
+        public void Delete(Kunde kunde)
         {
 
         }

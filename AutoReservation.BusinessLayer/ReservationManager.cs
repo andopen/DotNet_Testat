@@ -11,7 +11,7 @@ namespace AutoReservation.BusinessLayer
     public class ReservationManager
         : ManagerBase
     {
-        public List<Reservation> AllReservationen
+        public List<Reservation> List
         {
             get
             {
@@ -22,22 +22,22 @@ namespace AutoReservation.BusinessLayer
             }
         }
 
-        public Reservation GetReservationByNr(int reservationsNr)
+        public Reservation GetById(int reservationsNr)
         {
             return null;
         }
 
-        public Reservation InsertReservation(Reservation reservation)
+        public Reservation Insert(Reservation reservation)
         {
             return null;
         }
 
-        public Reservation UpdateReservation(Reservation reservation)
+        public Reservation Update(Reservation reservation)
         {
             return null;
         }
 
-        public void DeleteReservation(Reservation reservation)
+        public void Delete(Reservation reservation)
         {
 
         }
