@@ -97,7 +97,7 @@ namespace AutoReservation.BusinessLayer
 
         public static bool DateRangeCheck(Reservation reservation)
         {
-            if ((reservation.Bis - reservation.Von).TotalDays >= 24)
+            if ((reservation.Bis - reservation.Von).Days >= 1)
             {
                 return true;
             }
