@@ -84,20 +84,42 @@ namespace AutoReservation.Service.Wcf
 
         public void DeleteAuto(AutoDto auto)
         {
-            WriteActualMethod();
-            AutoManager.Delete(auto.ConvertToEntity());
+            try
+            {
+                WriteActualMethod();
+                AutoManager.Delete(auto.ConvertToEntity());
+            }
+            catch (OptimisticConcurrencyException<Auto> ex)
+            {
+                throw new FaultException<OptimisticConcurrencyFault<AutoDto>>(new OptimisticConcurrencyFault<AutoDto>(ex.MergedEntity.ConvertToDto()), ex.Message);
+            }
+
         }
 
         public void DeleteKunde(KundeDto kunde)
         {
-            WriteActualMethod();
-            KundeManager.Delete(kunde.ConvertToEntity());
+            try
+            {
+                WriteActualMethod();
+                KundeManager.Delete(kunde.ConvertToEntity());
+            }
+            catch (OptimisticConcurrencyException<Auto> ex)
+            {
+                throw new FaultException<OptimisticConcurrencyFault<AutoDto>>(new OptimisticConcurrencyFault<AutoDto>(ex.MergedEntity.ConvertToDto()), ex.Message);
+            }
         }
 
         public void DeleteReservation(ReservationDto reservation)
         {
-            WriteActualMethod();
-            ReservationManager.Delete(reservation.ConvertToEntity());
+            try
+            {
+                WriteActualMethod();
+                ReservationManager.Delete(reservation.ConvertToEntity());
+            }
+            catch (OptimisticConcurrencyException<Auto> ex)
+            {
+                throw new FaultException<OptimisticConcurrencyFault<AutoDto>>(new OptimisticConcurrencyFault<AutoDto>(ex.MergedEntity.ConvertToDto()), ex.Message);
+            }
         }
 
         public AutoDto GetAutoById(int id)
