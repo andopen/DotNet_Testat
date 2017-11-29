@@ -103,9 +103,9 @@ namespace AutoReservation.Service.Wcf
                 WriteActualMethod();
                 KundeManager.Delete(kunde.ConvertToEntity());
             }
-            catch (OptimisticConcurrencyException<Auto> ex)
+            catch (OptimisticConcurrencyException<Kunde> ex)
             {
-                throw new FaultException<OptimisticConcurrencyFault<AutoDto>>(new OptimisticConcurrencyFault<AutoDto>(ex.MergedEntity.ConvertToDto()), ex.Message);
+                throw new FaultException<OptimisticConcurrencyFault<KundeDto>>(new OptimisticConcurrencyFault<KundeDto>(ex.MergedEntity.ConvertToDto()), ex.Message);
             }
         }
 
@@ -116,9 +116,9 @@ namespace AutoReservation.Service.Wcf
                 WriteActualMethod();
                 ReservationManager.Delete(reservation.ConvertToEntity());
             }
-            catch (OptimisticConcurrencyException<Auto> ex)
+            catch (OptimisticConcurrencyException<Reservation> ex)
             {
-                throw new FaultException<OptimisticConcurrencyFault<AutoDto>>(new OptimisticConcurrencyFault<AutoDto>(ex.MergedEntity.ConvertToDto()), ex.Message);
+                throw new FaultException<OptimisticConcurrencyFault<ReservationDto>>(new OptimisticConcurrencyFault<ReservationDto>(ex.MergedEntity.ConvertToDto()), ex.Message);
             }
         }
 
