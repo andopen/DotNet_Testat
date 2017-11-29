@@ -42,11 +42,11 @@ namespace AutoReservation.BusinessLayer
         {
             if (!DateRangeCheck(reservation))
             {
-                throw new InvalidDateRangeException("InvalidDate");
+                throw new InvalidDateRangeException("Invalid Date");
             }
             else if (!AvailabilityCheck(reservation))
             {
-                throw new AutoUnavailableException("ReservationCollision");
+                throw new AutoUnavailableException("Reservation Collision");
             }
             using (AutoReservationContext context = new AutoReservationContext())
             {
@@ -66,7 +66,7 @@ namespace AutoReservation.BusinessLayer
             }
             else if (!AvailabilityCheck(reservation))
             {
-                throw new AutoUnavailableException("Reservation collision");
+                throw new AutoUnavailableException("Reservation Collision");
             }
             using (AutoReservationContext context = new AutoReservationContext())
             {
