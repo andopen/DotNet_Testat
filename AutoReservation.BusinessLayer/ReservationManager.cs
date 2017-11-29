@@ -37,10 +37,35 @@ namespace AutoReservation.BusinessLayer
             }
         }
 
+        public Boolean AvailabilityCheck(Reservation reservation)
+        {
+            using (AutoReservationContext context = new AutoReservationContext())
+            {
+                List<Reservation> allInvalid = context.Reservationen
+                .Where(r =>
+                    r.AutoId == reservation.AutoId &&
+                    r.ReservationsNr != reservation.ReservationsNr &&
+                    (r.Bis <= reservation.Von ||
+                    r.Von >= reservation.Bis))
+                .ToList();
+
+                if (allInvalid.Count > 0)
+                {
+                    return false;
+                }
+                return true;
+            }
+
+        }
+
         public Reservation Insert(Reservation reservation)
         {
             using (AutoReservationContext context = new AutoReservationContext())
             {
+
+
+
+
                 context.Entry(reservation).State = EntityState.Added;
                 context.Entry(reservation).Reference(r => r.Auto).Load();
                 context.Entry(reservation).Reference(r => r.Kunde).Load();
