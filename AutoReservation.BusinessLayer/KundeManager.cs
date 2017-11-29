@@ -26,8 +26,7 @@ namespace AutoReservation.BusinessLayer
         {
             using (AutoReservationContext context = new AutoReservationContext())
             {
-                Kunde kunde = context.Kunden.SingleOrDefault(k => k.Id == id);
-                return kunde;
+                return context.Kunden.SingleOrDefault(k => k.Id == id);
             }
         }
 
