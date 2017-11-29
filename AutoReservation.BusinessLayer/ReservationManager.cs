@@ -4,11 +4,79 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using AutoReservation.Dal.Entities;
 
 namespace AutoReservation.BusinessLayer
 {
     public class ReservationManager
         : ManagerBase
     {
+        public List<Reservation> List
+        {
+            get
+            {
+                using (AutoReservationContext context = new AutoReservationContext())
+                {
+                    return context.Reservationen
+                        .Include(r => r.Auto)
+                        .Include(r => r.Kunde)
+                        .ToList();
+                }
+            }
+        }
+
+        public Reservation GetById(int reservationsNr)
+        {
+            using (AutoReservationContext context = new AutoReservationContext())
+            {
+                Reservation reservation = context.Reservationen
+                    .Include(r => r.Auto)
+                    .Include(r => r.Kunde)
+                    .SingleOrDefault(r => r.ReservationsNr == reservationsNr);
+                return reservation;
+            }
+        }
+
+        public Reservation Insert(Reservation reservation)
+        {
+            using (AutoReservationContext context = new AutoReservationContext())
+            {
+                context.Entry(reservation).State = EntityState.Added;
+                context.Entry(reservation).Reference(r => r.Auto).Load();
+                context.Entry(reservation).Reference(r => r.Kunde).Load();
+                context.SaveChanges();
+                return reservation;
+            }
+        }
+
+        public Reservation Update(Reservation reservation)
+        {
+            using (AutoReservationContext context = new AutoReservationContext())
+            {
+                try
+                {
+                    context.Entry(reservation).State = EntityState.Modified;
+                    context.Entry(reservation).Reference(r => r.Auto).Load();
+                    context.Entry(reservation).Reference(r => r.Kunde).Load();
+                    context.SaveChanges();
+
+                    return reservation;
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    throw CreateOptimisticConcurrencyException<Reservation>(context, reservation);
+                }
+            }
+        }
+
+        public void Delete(Reservation reservation)
+        {
+            using (AutoReservationContext context = new AutoReservationContext())
+            {
+                context.Entry(reservation).State = EntityState.Deleted;
+                context.SaveChanges();
+            }
+        }
+
     }
 }
