@@ -26,8 +26,7 @@ namespace AutoReservation.BusinessLayer
         {
             using (AutoReservationContext context = new AutoReservationContext())
             {
-                Auto auto = context.Autos.SingleOrDefault(a => a.Id == id);
-                return auto;
+                return context.Autos.SingleOrDefault(a => a.Id == id);
             }
         }
 
@@ -37,6 +36,7 @@ namespace AutoReservation.BusinessLayer
             {
                 context.Entry(auto).State = EntityState.Added;
                 context.SaveChanges();
+
                 return auto;
             }
         }
