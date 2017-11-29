@@ -6,17 +6,20 @@ using System.Data.Entity;
 
 namespace AutoReservation.Dal.Entities
 {
+    [Table("Kunde")]
     public class Kunde
     {
-        public DateTime Geburtsdatum { get; set; }
         [Key]
         public int Id { get; set; }
+        [Required, MaxLength(20)]
         public string Nachname { get; set; }
+        [Required, MaxLength(20)]
+        public string Vorname { get; set; }
+        [Required]
+        public DateTime Geburtsdatum { get; set; }
+        public virtual ICollection<Reservation> Reservationen { get; set; }
+
         [Timestamp]
         public byte[] RowVersion { get; set; }
-        public string Vorname { get; set; }
-
-        [ForeignKey("Reservationen")]
-        public ICollection<Reservation> Reservationen { get; set; }
     }
 }
