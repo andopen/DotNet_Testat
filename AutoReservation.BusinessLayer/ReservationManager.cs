@@ -17,29 +17,65 @@ namespace AutoReservation.BusinessLayer
             {
                 using (AutoReservationContext context = new AutoReservationContext())
                 {
-                    return context.Reservationen.ToList();
+                    return context.Reservationen
+                        .Include(r => r.Auto)
+                        .Include(r => r.Kunde)
+                        .ToList();
                 }
             }
         }
 
         public Reservation GetById(int reservationsNr)
         {
-            return null;
+            using (AutoReservationContext context = new AutoReservationContext())
+            {
+                Reservation reservation = context.Reservationen
+                    .Include(r => r.Auto)
+                    .Include(r => r.Kunde)
+                    .SingleOrDefault(r => r.ReservationsNr == reservationsNr);
+                return reservation;
+            }
         }
 
         public Reservation Insert(Reservation reservation)
         {
-            return null;
+            using (AutoReservationContext context = new AutoReservationContext())
+            {
+                context.Entry(reservation).State = EntityState.Added;
+                context.Entry(reservation).Reference(r => r.Auto).Load();
+                context.Entry(reservation).Reference(r => r.Kunde).Load();
+                context.SaveChanges();
+                return reservation;
+            }
         }
 
         public Reservation Update(Reservation reservation)
         {
-            return null;
+            using (AutoReservationContext context = new AutoReservationContext())
+            {
+                try
+                {
+                    context.Entry(reservation).State = EntityState.Modified;
+                    context.Entry(reservation).Reference(r => r.Auto).Load();
+                    context.Entry(reservation).Reference(r => r.Kunde).Load();
+                    context.SaveChanges();
+
+                    return reservation;
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    throw CreateOptimisticConcurrencyException<Reservation>(context, reservation);
+                }
+            }
         }
 
         public void Delete(Reservation reservation)
         {
-
+            using (AutoReservationContext context = new AutoReservationContext())
+            {
+                context.Entry(reservation).State = EntityState.Deleted;
+                context.SaveChanges();
+            }
         }
 
     }

@@ -24,22 +24,48 @@ namespace AutoReservation.BusinessLayer
 
         public Kunde GetById(int id)
         {
-            return null;
+            using (AutoReservationContext context = new AutoReservationContext())
+            {
+                Kunde kunde = context.Kunden.SingleOrDefault(k => k.Id == id);
+                return kunde;
+            }
         }
 
         public Kunde Insert(Kunde kunde)
         {
-            return null;
+            using (AutoReservationContext context = new AutoReservationContext())
+            {
+                context.Entry(kunde).State = EntityState.Added;
+                context.SaveChanges();
+                return kunde;
+            }
         }
 
         public Kunde Update(Kunde kunde)
         {
-            return null;
+            using (AutoReservationContext context = new AutoReservationContext())
+            {
+                try
+                {
+                    context.Entry(kunde).State = EntityState.Modified;
+                    context.SaveChanges();
+
+                    return kunde;
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    throw CreateOptimisticConcurrencyException<Kunde>(context, kunde);
+                }
+            }
         }
 
         public void Delete(Kunde kunde)
         {
-
+            using (AutoReservationContext context = new AutoReservationContext())
+            {
+                context.Entry(kunde).State = EntityState.Deleted;
+                context.SaveChanges();
+            }
         }
     }
 }
