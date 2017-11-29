@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using AutoReservation.Dal.Entities;
+using AutoReservation.BusinessLayer.Exceptions;
 
 namespace AutoReservation.BusinessLayer
 {
@@ -39,6 +40,14 @@ namespace AutoReservation.BusinessLayer
 
         public Reservation Insert(Reservation reservation)
         {
+            if (!DateRangeCheck(reservation))
+            {
+                throw new InvalidDateRangeException("TODO");
+            }
+            else if (!AvailabilityCheck(reservation))
+            {
+                throw new AutoUnavailableException("TODO");
+            }
             using (AutoReservationContext context = new AutoReservationContext())
             {
                 context.Entry(reservation).State = EntityState.Added;
@@ -51,6 +60,14 @@ namespace AutoReservation.BusinessLayer
 
         public Reservation Update(Reservation reservation)
         {
+            if (!DateRangeCheck(reservation))
+            {
+                throw new InvalidDateRangeException("TODO");
+            }
+            else if (!AvailabilityCheck(reservation))
+            {
+                throw new AutoUnavailableException("TODO");
+            }
             using (AutoReservationContext context = new AutoReservationContext())
             {
                 try
@@ -76,6 +93,27 @@ namespace AutoReservation.BusinessLayer
                 context.Entry(reservation).State = EntityState.Deleted;
                 context.SaveChanges();
             }
+        }
+
+        public static bool DateRangeCheck(Reservation reservation)
+        {
+            if ((reservation.Bis - reservation.Von).TotalDays >= 24)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public static bool AvailabilityCheck(Reservation reservation)
+        {
+            foreach (Reservation r in reservation.Auto.Reservationen.ToList())
+            {
+                if (r.Bis <= reservation.Von || r.Von >= reservation.Bis)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
     }
