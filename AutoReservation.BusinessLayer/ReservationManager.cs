@@ -90,8 +90,15 @@ namespace AutoReservation.BusinessLayer
         {
             using (AutoReservationContext context = new AutoReservationContext())
             {
-                context.Entry(reservation).State = EntityState.Deleted;
-                context.SaveChanges();
+                try
+                {
+                    context.Entry(reservation).State = EntityState.Deleted;
+                    context.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    throw CreateOptimisticConcurrencyException<Reservation>(context, reservation);
+                }
             }
         }
 
