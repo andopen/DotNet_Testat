@@ -21,7 +21,12 @@ namespace AutoReservation.BusinessLayer.Testing
         [TestMethod]
         public void UpdateAutoTest()
         {
-            Assert.Inconclusive("Test not implemented.");
+            Auto auto = Target.List[1];
+            auto.Tagestarif = 10;
+
+            Target.Update(auto);
+
+            Assert.AreEqual(auto.Tagestarif, Target.List.Find(a => auto.Id == a.Id).Tagestarif);
         }
     }
 }

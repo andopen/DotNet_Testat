@@ -111,7 +111,7 @@ namespace AutoReservation.BusinessLayer
             return false;
         }
 
-        public Boolean AvailabilityCheck(Reservation reservation)
+        public static bool AvailabilityCheck(Reservation reservation)
         {
             using (AutoReservationContext context = new AutoReservationContext())
             {
@@ -119,8 +119,10 @@ namespace AutoReservation.BusinessLayer
                 .Any(r =>
                     r.AutoId == reservation.AutoId &&
                     r.ReservationsNr != reservation.ReservationsNr &&
-                    !(r.Bis <= reservation.Von ||
-                    r.Von >= reservation.Bis));
+                    !((r.Bis <= reservation.Von &&
+                    r.Von >= reservation.Bis) || 
+                    (r.Bis >= reservation.Von && 
+                    r.Von <= reservation.Bis)));
             }
 
         }
