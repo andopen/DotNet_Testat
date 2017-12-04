@@ -21,31 +21,41 @@ namespace AutoReservation.BusinessLayer.Testing
         [TestMethod]
         public void ScenarioOkay01Test()
         {
-            Assert.Inconclusive("Test not implemented.");
+            Reservation reservation = new Reservation { ReservationsNr = 4, AutoId = 1, KundeId = 1, Von = new DateTime(2017, 10, 10), Bis = new DateTime(2018, 10, 10) };
+
+            Assert.IsTrue(ReservationManager.AvailabilityCheck(reservation));
         }
 
         [TestMethod]
         public void ScenarioOkay02Test()
         {
-            Assert.Inconclusive("Test not implemented.");
+            Reservation reservation = new Reservation { ReservationsNr = 4, AutoId = 1, KundeId = 1, Von = new DateTime(2020, 01, 20), Bis = new DateTime(2020, 01, 30)};
+
+            Assert.IsTrue(ReservationManager.AvailabilityCheck(reservation));
         }
         
         [TestMethod]
         public void ScenarioNotOkay01Test()
         {
-            Assert.Inconclusive("Test not implemented.");
+            Reservation reservation = new Reservation { ReservationsNr = 4, AutoId = 1, KundeId = 1, Von = new DateTime(2020, 01, 15), Bis = new DateTime(2020, 01, 30) };
+
+            Assert.IsFalse(ReservationManager.AvailabilityCheck(reservation));
         }
 
         [TestMethod]
         public void ScenarioNotOkay02Test()
         {
-            Assert.Inconclusive("Test not implemented.");
+            Reservation reservation = new Reservation { ReservationsNr = 4, AutoId = 1, KundeId = 1, Von = new DateTime(2020, 01, 05), Bis = new DateTime(2020, 01, 15) };
+
+            Assert.IsFalse(ReservationManager.AvailabilityCheck(reservation));
         }
 
         [TestMethod]
         public void ScenarioNotOkay03Test()
         {
-            Assert.Inconclusive("Test not implemented.");
+            Reservation reservation = new Reservation { ReservationsNr = 4, AutoId = 1, KundeId = 1, Von = new DateTime(2020, 01, 10), Bis = new DateTime(2020, 01, 20) };
+
+            Assert.IsFalse(ReservationManager.AvailabilityCheck(reservation));
         }
     }
 }

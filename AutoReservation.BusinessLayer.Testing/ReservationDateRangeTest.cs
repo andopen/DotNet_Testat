@@ -21,31 +21,43 @@ namespace AutoReservation.BusinessLayer.Testing
         [TestMethod]
         public void ScenarioOkay01Test()
         {
-            Assert.Inconclusive("Test not implemented.");
+            Assert.IsTrue(ReservationManager.DateRangeCheck(Target.List[0]));
         }
 
         [TestMethod]
         public void ScenarioOkay02Test()
         {
-            Assert.Inconclusive("Test not implemented.");
+            Reservation reservation = Target.List[1];
+            reservation.Bis = new DateTime(2020, 01, 11);
+
+            Assert.IsTrue(ReservationManager.DateRangeCheck(reservation));
         }
 
         [TestMethod]
         public void ScenarioNotOkay01Test()
         {
-            Assert.Inconclusive("Test not implemented.");
+            Reservation reservation = Target.List[1];
+            reservation.Bis = new DateTime(2020, 01, 10);
+
+            Assert.IsFalse(ReservationManager.DateRangeCheck(reservation));
         }
 
         [TestMethod]
         public void ScenarioNotOkay02Test()
         {
-            Assert.Inconclusive("Test not implemented.");
+            Reservation reservation = Target.List[1];
+            reservation.Bis = reservation.Von;
+
+            Assert.IsFalse(ReservationManager.DateRangeCheck(reservation));
         }
 
         [TestMethod]
         public void ScenarioNotOkay03Test()
         {
-            Assert.Inconclusive("Test not implemented.");
+            Reservation reservation = Target.List[1];
+            reservation.Bis = reservation.Von.AddHours(10);
+
+            Assert.IsFalse(ReservationManager.DateRangeCheck(reservation));
         }
     }
 }
