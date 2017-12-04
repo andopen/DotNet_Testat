@@ -119,7 +119,7 @@ namespace AutoReservation.BusinessLayer
                 .Any(r =>
                     r.AutoId == reservation.AutoId &&
                     r.ReservationsNr != reservation.ReservationsNr &&
-                    (r.Bis <= reservation.Von ||
+                    !(r.Bis <= reservation.Von ||
                     r.Von >= reservation.Bis));
             }
 
