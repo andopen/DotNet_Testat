@@ -121,10 +121,6 @@ namespace AutoReservation.BusinessLayer
                     r.ReservationsNr != reservation.ReservationsNr &&
                     !(r.Bis <= reservation.Von ||
                     r.Von >= reservation.Bis));
-                //!((r.Bis <= reservation.Von &&
-                //r.Von >= reservation.Bis) || 
-                //(r.Bis >= reservation.Von && 
-                //r.Von <= reservation.Bis)));
             }
 
         }

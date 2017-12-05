@@ -19,7 +19,7 @@
             <ColumnDefinition Width="50" />
         </Grid.ColumnDefinitions>
         <TabControl Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5">
-            <TabItem Header="Auto">
+            <TabItem Header="Car">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30" />
@@ -29,20 +29,24 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Content="Auto-List" FontStyle="Italic" FontWeight="Bold" />
-                    <Label Grid.Row="0" Grid.Column="1" Content="Auto Edit" FontStyle="Italic" FontWeight="Bold" />
+                    <Label Grid.Row="0" Grid.Column="0" Content="Car-List" FontStyle="Italic" FontWeight="Bold" />
+                    <Label Grid.Row="0" Grid.Column="1" Content="Car Edit" FontStyle="Italic" FontWeight="Bold" />
                     <Grid Grid.Row="1" Grid.Column="1">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="20" />
-                            <RowDefinition Height="20" />
-                            <RowDefinition Height="20" />
-                            <RowDefinition Height="20" />
-                            <RowDefinition Height="20" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="70" />
+                            <ColumnDefinition Width="90" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Content="Car Name" />
+                        <Label Grid.Row="1" Grid.Column="0" Content="Car Type" />
+                        <Label Grid.Row="2" Grid.Column="0" Content="Base Rate" />
+                        <Label Grid.Row="3" Grid.Column="0" Content="Standard Rate" />
                     </Grid>
                     <ListView Grid.Row="1">
                         <ListView.View>
@@ -68,10 +72,10 @@
                     <Label Grid.Row="0" Grid.Column="1" Content="Client Edit" FontStyle="Italic" FontWeight="Bold" />
                     <Grid Grid.Row="1" Grid.Column="1">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="20" />
-                            <RowDefinition Height="20" />
-                            <RowDefinition Height="20" />
-                            <RowDefinition Height="20" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="70" />
@@ -102,21 +106,29 @@
                     <Label Grid.Row="0" Grid.Column="1" Content="Reservation Edit" FontStyle="Italic" FontWeight="Bold" />
                     <Grid Grid.Row="1" Grid.Column="1">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="20" />
-                            <RowDefinition Height="20" />
-                            <RowDefinition Height="20" />
-                            <RowDefinition Height="20" />
-                            <RowDefinition Height="20" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="70" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Content="Client" />
+                        <Label Grid.Row="1" Grid.Column="0" Content="Car" />
+                        <Label Grid.Row="2" Grid.Column="0" Content="From" />
+                        <Label Grid.Row="3" Grid.Column="0" Content="Until" />
+                        <ComboBox Grid.Row="0" Grid.Column="1" Name="ComboBoxClient" Margin="3" />
+                        <ComboBox Grid.Row="1" Grid.Column="1" Name="ComboBoxCar" Margin="3" />
+                        <DatePicker Grid.Row="2" Grid.Column="1" Name="DatePickerFrom" Margin="3" />
+                        <DatePicker Grid.Row="3" Grid.Column="1" Name="DatePickerUntil" Margin="3" />
                     </Grid>
                     <ListView Name="ReservationList" Grid.Row="1">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn/>
+                                <GridViewColumn />
                                 <GridViewColumn />
                             </GridView>
                         </ListView.View>
