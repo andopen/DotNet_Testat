@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoReservation.GUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Car Reservation Application" Height="350" Width="525">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -40,18 +40,24 @@
                             <RowDefinition Height="30" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="90" />
+                            <ColumnDefinition Width="70" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Row="0" Grid.Column="0" Content="Car Name" />
-                        <Label Grid.Row="1" Grid.Column="0" Content="Car Type" />
-                        <Label Grid.Row="2" Grid.Column="0" Content="Base Rate" />
-                        <Label Grid.Row="3" Grid.Column="0" Content="Standard Rate" />
+                        <Label Grid.Row="0" Grid.Column="0" Content="Car Type" />
+                        <Label Grid.Row="1" Grid.Column="0" Content="Car Brand" />
+                        <Label Grid.Row="2" Grid.Column="0" Content="Day Rate" />
+                        <Label Grid.Row="3" Grid.Column="0" Content="Base Rate" />
+                        <ComboBox Grid.Row="0" Grid.Column="1" Name="ComboBoxCarType" Margin="3" />
+                        <TextBox Grid.Row="1" Grid.Column="1" Name="TextBoxCarBrand" Text="Car Brand" Margin="3" />
+                        <TextBox Grid.Row="2" Grid.Column="1" Name="TextBoxCarDayRate" Text="50" Margin="3" />
+                        <TextBox Grid.Row="3" Grid.Column="1" Name="TextBoxCarBaseRate" Text="0" Margin="3" />
                     </Grid>
                     <ListView Grid.Row="1">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn/>
+                                <GridViewColumn />
+                                <GridViewColumn />
+                                <GridViewColumn />
                                 <GridViewColumn />
                             </GridView>
                         </ListView.View>
@@ -81,6 +87,12 @@
                             <ColumnDefinition Width="70" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Content="Name" />
+                        <Label Grid.Row="1" Grid.Column="0" Content="First Name" />
+                        <Label Grid.Row="2" Grid.Column="0" Content="Birthday" />
+                        <TextBox Grid.Row="0" Grid.Column="1" Text="Name" Margin="3" />
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="First Name" Margin="3" />
+                        <DatePicker Grid.Row="2" Grid.Column="1" Margin="3" />
                     </Grid>
                     <ListView Grid.Row="1">
                         <ListView.View>
