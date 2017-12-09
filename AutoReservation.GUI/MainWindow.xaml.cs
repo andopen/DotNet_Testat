@@ -42,7 +42,18 @@ namespace AutoReservation.GUI
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            ReservationList.ItemsSource = autoReservationService.AllReservationen;
+            if (MainWindowTabControl.SelectedIndex == 0)
+            {
+                CarListView.ItemsSource = autoReservationService.AllAutos;
+            }
+            else if (MainWindowTabControl.SelectedIndex == 1)
+            {
+                ClientListView.ItemsSource = autoReservationService.AllKunden;
+            }
+            else if (MainWindowTabControl.SelectedIndex == 2)
+            {
+                ReservationListView.ItemsSource = autoReservationService.AllReservationen;
+            }
         }
     }
 }

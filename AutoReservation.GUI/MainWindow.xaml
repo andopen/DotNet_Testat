@@ -18,7 +18,7 @@
             <ColumnDefinition Width="50" />
             <ColumnDefinition Width="50" />
         </Grid.ColumnDefinitions>
-        <TabControl Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5">
+        <TabControl Name="MainWindowTabControl" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5">
             <TabItem Header="Car">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -52,13 +52,13 @@
                         <TextBox Grid.Row="2" Grid.Column="1" Name="TextBoxCarDayRate" Text="50" Margin="3" />
                         <TextBox Grid.Row="3" Grid.Column="1" Name="TextBoxCarBaseRate" Text="0" Margin="3" />
                     </Grid>
-                    <ListView Grid.Row="1">
+                    <ListView Name="CarListView" Grid.Row="1">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn />
-                                <GridViewColumn />
-                                <GridViewColumn />
-                                <GridViewColumn />
+                                <GridViewColumn Header="Type" DisplayMemberBinding="{Binding AutoKlasse}"/>
+                                <GridViewColumn Header="Brand" DisplayMemberBinding="{Binding Marke}"/>
+                                <GridViewColumn Header="Day Rate" DisplayMemberBinding="{Binding Tagestarif}"/>
+                                <GridViewColumn Header="Base Rate" DisplayMemberBinding="{Binding Basistarif}"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
@@ -94,11 +94,12 @@
                         <TextBox Grid.Row="1" Grid.Column="1" Text="First Name" Margin="3" />
                         <DatePicker Grid.Row="2" Grid.Column="1" Margin="3" />
                     </Grid>
-                    <ListView Grid.Row="1">
+                    <ListView Name="ClientListView" Grid.Row="1">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn/>
-                                <GridViewColumn />
+                                <GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding Nachname}"/>
+                                <GridViewColumn Header="First Name" DisplayMemberBinding="{Binding Vorname}"/>
+                                <GridViewColumn Header="Birthday" DisplayMemberBinding="{Binding Geburtsdatum}"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
@@ -137,11 +138,14 @@
                         <DatePicker Grid.Row="2" Grid.Column="1" Name="DatePickerFrom" Margin="3" />
                         <DatePicker Grid.Row="3" Grid.Column="1" Name="DatePickerUntil" Margin="3" />
                     </Grid>
-                    <ListView Name="ReservationList" Grid.Row="1">
+                    <ListView Name="ReservationListView" Grid.Row="1">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn />
-                                <GridViewColumn />
+                                <GridViewColumn Header="ReservationNr" DisplayMemberBinding="{Binding ReservationsNr}"/>
+                                <GridViewColumn Header="From" DisplayMemberBinding="{Binding Von}"/>
+                                <GridViewColumn Header="Until" DisplayMemberBinding="{Binding Bis}"/>
+                                <GridViewColumn Header="Client" DisplayMemberBinding="{Binding Kunde.Nachname}"/>
+                                <GridViewColumn Header="Car" DisplayMemberBinding="{Binding Auto.AutoKlasse}"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
