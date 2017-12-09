@@ -22,8 +22,7 @@ namespace AutoReservation.Service.Wcf
         {
             get
             {
-                autoManager = autoManager ?? new AutoManager();
-                return autoManager;
+                return autoManager ?? (autoManager = new AutoManager());         
             }
         }
 
@@ -31,16 +30,14 @@ namespace AutoReservation.Service.Wcf
         {
             get
             {
-                kundeManager = kundeManager ?? new KundeManager();
-                return kundeManager;
+                return kundeManager ?? (kundeManager = new KundeManager());
             }
         }
         private ReservationManager ReservationManager
         {
             get
             {
-                reservationManager = reservationManager ?? new ReservationManager();
-                return reservationManager;
+                return reservationManager ?? (reservationManager = new ReservationManager());
             }
         }
 
