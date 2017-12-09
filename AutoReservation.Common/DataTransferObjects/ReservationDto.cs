@@ -19,7 +19,7 @@ namespace AutoReservation.Common.DataTransferObjects
         [DataMember]
         public byte[] RowVersion { get; set; }
 
-        //public override string ToString()
-        //    => $"{ReservationsNr}; {Von}; {Bis}; {Auto}; {Kunde}";
+        public override string ToString()
+            => $"{ReservationsNr}; {Von}; {Bis}; {Auto}; {Kunde}";
     }
 }

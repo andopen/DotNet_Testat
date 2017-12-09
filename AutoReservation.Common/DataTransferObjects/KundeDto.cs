@@ -17,7 +17,7 @@ namespace AutoReservation.Common.DataTransferObjects
         [DataMember]
         public byte[] RowVersion { get; set; }
 
-        //public override string ToString()
-        //    => $"{Id}; {Nachname}; {Vorname}; {Geburtsdatum}; {RowVersion}";
+        public override string ToString()
+            => $"{Id}; {Nachname}; {Vorname}; {Geburtsdatum}; {RowVersion}";
     }
 }

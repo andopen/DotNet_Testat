@@ -18,7 +18,7 @@ namespace AutoReservation.Common.DataTransferObjects
         public AutoKlasse AutoKlasse { get; set; }
         [DataMember]
         public int Basistarif { get; set; }
-        //public override string ToString()
-        //    => $"{Id}; {Marke}; {Tagestarif}; {Basistarif}; {AutoKlasse}; {RowVersion}";
+        public override string ToString()
+            => $"{Id}; {Marke}; {Tagestarif}; {Basistarif}; {AutoKlasse}; {RowVersion}";
     }
 }
