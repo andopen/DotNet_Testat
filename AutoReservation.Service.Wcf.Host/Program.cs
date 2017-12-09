@@ -1,4 +1,5 @@
-﻿using AutoReservation.Dal;
+﻿using AutoReservation.BusinessLayer;
+using AutoReservation.Dal;
 using AutoReservation.Dal.Entities;
 using System;
 using System.Collections.Generic;
@@ -46,6 +47,7 @@ namespace AutoReservation.Service.Wcf.Host
                 context.Reservationen.AddRange(Reservationen);
                 context.SaveChanges();
             }
+
 
             Console.WriteLine("AutoReservationService starting.");
 
