@@ -134,27 +134,13 @@ namespace AutoReservation.Service.Wcf
         public AutoDto InsertAuto(AutoDto auto)
         {
             WriteActualMethod();
-            try
-            {
-                return AutoManager.Insert(auto.ConvertToEntity()).ConvertToDto();
-            }
-            catch (OptimisticConcurrencyException<Auto> ex)
-            {
-                throw new FaultException<OptimisticConcurrencyFault<AutoDto>>(new OptimisticConcurrencyFault<AutoDto>(ex.MergedEntity.ConvertToDto()), ex.Message);
-            }
+            return AutoManager.Insert(auto.ConvertToEntity()).ConvertToDto();
         }
 
         public KundeDto InsertKunde(KundeDto kunde)
         {
             WriteActualMethod();
-            try
-            {
-                return KundeManager.Insert(kunde.ConvertToEntity()).ConvertToDto();
-            }
-            catch (OptimisticConcurrencyException<Kunde> ex)
-            {
-                throw new FaultException<OptimisticConcurrencyFault<KundeDto>>(new OptimisticConcurrencyFault<KundeDto>(ex.MergedEntity.ConvertToDto()), ex.Message);
-            }
+            return KundeManager.Insert(kunde.ConvertToEntity()).ConvertToDto();
         }
 
         public ReservationDto InsertReservation(ReservationDto reservation)
@@ -163,10 +149,6 @@ namespace AutoReservation.Service.Wcf
             try
             {
                 return ReservationManager.Insert(reservation.ConvertToEntity()).ConvertToDto();
-            }
-            catch (OptimisticConcurrencyException<Reservation> ex)
-            {
-                throw new FaultException<OptimisticConcurrencyFault<ReservationDto>>(new OptimisticConcurrencyFault<ReservationDto>(ex.MergedEntity.ConvertToDto()), ex.Message);
             }
             catch (InvalidDateRangeException ex)
             {

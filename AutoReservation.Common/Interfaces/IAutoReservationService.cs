@@ -38,15 +38,12 @@ namespace AutoReservation.Common.Interfaces
         ReservationDto GetReservationByNr(int reservationsNr);
 
         [OperationContract]
-        [FaultContract(typeof(OptimisticConcurrencyFault<AutoDto>))]
         AutoDto InsertAuto(AutoDto auto);
 
         [OperationContract]
-        [FaultContract(typeof(OptimisticConcurrencyFault<KundeDto>))]
         KundeDto InsertKunde(KundeDto kunde);
 
         [OperationContract]
-        [FaultContract(typeof(OptimisticConcurrencyFault<ReservationDto>))]
         [FaultContract(typeof(AutoUnavailableFault))]
         [FaultContract(typeof(InvalidDateRangeFault))]
         ReservationDto InsertReservation(ReservationDto reservation);
