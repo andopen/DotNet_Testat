@@ -22,10 +22,7 @@ namespace AutoReservation.Service.Wcf
         {
             get
             {
-                if (autoManager == null)
-                {
-                    autoManager = new AutoManager();
-                }
+                autoManager = autoManager ?? new AutoManager();
                 return autoManager;
             }
         }
@@ -34,10 +31,7 @@ namespace AutoReservation.Service.Wcf
         {
             get
             {
-                if (kundeManager == null)
-                {
-                    kundeManager = new KundeManager();
-                }
+                kundeManager = kundeManager ?? new KundeManager();
                 return kundeManager;
             }
         }
@@ -45,10 +39,7 @@ namespace AutoReservation.Service.Wcf
         {
             get
             {
-                if (reservationManager == null)
-                {
-                    reservationManager = new ReservationManager();
-                }
+                reservationManager = reservationManager ?? new ReservationManager();
                 return reservationManager;
             }
         }
