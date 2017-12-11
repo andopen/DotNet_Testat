@@ -10,6 +10,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="30" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -44,5 +45,11 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2">
+            <Button Content="Delete" Margin="1"/>
+            <Button Content="Save" Margin="1"/>
+            <Button Content="Add" Margin="1"/>
+            <Button Content="Refresh" Margin="1"/>
+        </StackPanel>
     </Grid>
 </UserControl>
