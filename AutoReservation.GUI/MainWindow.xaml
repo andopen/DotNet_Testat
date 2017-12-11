@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoReservation.GUI"
+        xmlns:Views="clr-namespace:AutoReservation.GUI.Views"
         mc:Ignorable="d"
         Title="Car Reservation Application" Height="350" Width="525">
     <Grid>
@@ -20,136 +21,13 @@
         </Grid.ColumnDefinitions>
         <TabControl Name="MainWindowTabControl" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5">
             <TabItem Header="Car">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Content="Car-List" FontStyle="Italic" FontWeight="Bold" />
-                    <Label Grid.Row="0" Grid.Column="1" Content="Car Edit" FontStyle="Italic" FontWeight="Bold" />
-                    <Grid Grid.Row="1" Grid.Column="1">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="70" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.Row="0" Grid.Column="0" Content="Car Type" />
-                        <Label Grid.Row="1" Grid.Column="0" Content="Car Brand" />
-                        <Label Grid.Row="2" Grid.Column="0" Content="Day Rate" />
-                        <Label Grid.Row="3" Grid.Column="0" Content="Base Rate" />
-                        <ComboBox Grid.Row="0" Grid.Column="1" Name="ComboBoxCarType" Margin="3" />
-                        <TextBox Grid.Row="1" Grid.Column="1" Name="TextBoxCarBrand" Text="Car Brand" Margin="3" />
-                        <TextBox Grid.Row="2" Grid.Column="1" Name="TextBoxCarDayRate" Text="50" Margin="3" />
-                        <TextBox Grid.Row="3" Grid.Column="1" Name="TextBoxCarBaseRate" Text="0" Margin="3" />
-                    </Grid>
-                    <ListView Name="CarListView" Grid.Row="1">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="Type" DisplayMemberBinding="{Binding AutoKlasse}"/>
-                                <GridViewColumn Header="Brand" DisplayMemberBinding="{Binding Marke}"/>
-                                <GridViewColumn Header="Day Rate" DisplayMemberBinding="{Binding Tagestarif}"/>
-                                <GridViewColumn Header="Base Rate" DisplayMemberBinding="{Binding Basistarif}"/>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                </Grid>
+                <Views:CarView x:Name="vCarView"/>
             </TabItem>
             <TabItem Header="Client">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Content="Client-List" FontStyle="Italic" FontWeight="Bold" />
-                    <Label Grid.Row="0" Grid.Column="1" Content="Client Edit" FontStyle="Italic" FontWeight="Bold" />
-                    <Grid Grid.Row="1" Grid.Column="1">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="70" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.Row="0" Grid.Column="0" Content="Name" />
-                        <Label Grid.Row="1" Grid.Column="0" Content="First Name" />
-                        <Label Grid.Row="2" Grid.Column="0" Content="Birthday" />
-                        <TextBox Grid.Row="0" Grid.Column="1" Text="Name" Margin="3" />
-                        <TextBox Grid.Row="1" Grid.Column="1" Text="First Name" Margin="3" />
-                        <DatePicker Grid.Row="2" Grid.Column="1" Margin="3" />
-                    </Grid>
-                    <ListView Name="ClientListView" Grid.Row="1">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding Nachname}"/>
-                                <GridViewColumn Header="First Name" DisplayMemberBinding="{Binding Vorname}"/>
-                                <GridViewColumn Header="Birthday" DisplayMemberBinding="{Binding Geburtsdatum}"/>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                </Grid>
+                <Views:ClientView x:Name="vClientView"/>
             </TabItem>
             <TabItem Header="Reservation">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Content="Reservation-List" FontStyle="Italic" FontWeight="Bold" />
-                    <Label Grid.Row="0" Grid.Column="1" Content="Reservation Edit" FontStyle="Italic" FontWeight="Bold" />
-                    <Grid Grid.Row="1" Grid.Column="1">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="70" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.Row="0" Grid.Column="0" Content="Client" />
-                        <Label Grid.Row="1" Grid.Column="0" Content="Car" />
-                        <Label Grid.Row="2" Grid.Column="0" Content="From" />
-                        <Label Grid.Row="3" Grid.Column="0" Content="Until" />
-                        <ComboBox Grid.Row="0" Grid.Column="1" Name="ComboBoxClient" Margin="3" />
-                        <ComboBox Grid.Row="1" Grid.Column="1" Name="ComboBoxCar" Margin="3" />
-                        <DatePicker Grid.Row="2" Grid.Column="1" Name="DatePickerFrom" Margin="3" />
-                        <DatePicker Grid.Row="3" Grid.Column="1" Name="DatePickerUntil" Margin="3" />
-                    </Grid>
-                    <ListView Name="ReservationListView" Grid.Row="1">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="ReservationNr" DisplayMemberBinding="{Binding ReservationsNr}"/>
-                                <GridViewColumn Header="From" DisplayMemberBinding="{Binding Von}"/>
-                                <GridViewColumn Header="Until" DisplayMemberBinding="{Binding Bis}"/>
-                                <GridViewColumn Header="Client" DisplayMemberBinding="{Binding Kunde.Nachname}"/>
-                                <GridViewColumn Header="Car" DisplayMemberBinding="{Binding Auto.AutoKlasse}"/>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                </Grid>
+                <Views:ReservationView x:Name="vReservationView"/>
             </TabItem>
         </TabControl>
         <Button Grid.Row="1" Grid.Column="4" Content="Delete" Margin="1" Click="Delete_Click"/>

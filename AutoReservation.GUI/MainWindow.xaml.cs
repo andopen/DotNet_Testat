@@ -46,9 +46,9 @@ namespace AutoReservation.GUI
             clients = new ObservableCollection<KundeDto>(autoReservationService.AllKunden);
             reservations = new ObservableCollection<ReservationDto>(autoReservationService.AllReservationen);
 
-            CarListView.ItemsSource = cars;
-            ClientListView.ItemsSource = clients;
-            ReservationListView.ItemsSource = reservations;
+            //CarListView.ItemsSource = cars;
+            //ClientListView.ItemsSource = clients;
+            //ReservationListView.ItemsSource = reservations;
 
         }
 
