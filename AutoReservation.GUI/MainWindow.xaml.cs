@@ -52,20 +52,17 @@ namespace AutoReservation.GUI
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Refresh_Click(object sender, RoutedEventArgs e)
         {
-            //if (MainWindowTabControl.SelectedIndex == 0)
-            //{
-            //    CarListView.ItemsSource = autoReservationService.AllAutos;
-            //}
-            //else if (MainWindowTabControl.SelectedIndex == 1)
-            //{
-            //    ClientListView.ItemsSource = autoReservationService.AllKunden;
-            //}
-            //else if (MainWindowTabControl.SelectedIndex == 2)
-            //{
-            //    ReservationListView.ItemsSource = autoReservationService.AllReservationen;
-            //}
+        }
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+        }
+        private void Add_Click(object sender, RoutedEventArgs e)
+        {
+        }
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
         }
     }
 }
