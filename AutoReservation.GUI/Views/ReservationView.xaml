@@ -38,14 +38,15 @@
             <DatePicker Grid.Row="2" Grid.Column="1" Name="DatePickerFrom" Margin="3" />
             <DatePicker Grid.Row="3" Grid.Column="1" Name="DatePickerUntil" Margin="3" />
         </Grid>
-        <ListView Name="ReservationListView" Grid.Row="1">
+        <ListView Name="ReservationListView" Grid.Row="1"
+                  ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ReservationNr" DisplayMemberBinding="{Binding ReservationsNr}"/>
-                    <GridViewColumn Header="From" DisplayMemberBinding="{Binding Von}"/>
-                    <GridViewColumn Header="Until" DisplayMemberBinding="{Binding Bis}"/>
                     <GridViewColumn Header="Client" DisplayMemberBinding="{Binding Kunde.Nachname}"/>
                     <GridViewColumn Header="Car" DisplayMemberBinding="{Binding Auto.AutoKlasse}"/>
+                    <GridViewColumn Header="From" DisplayMemberBinding="{Binding Von}"/>
+                    <GridViewColumn Header="Until" DisplayMemberBinding="{Binding Bis}"/>
                 </GridView>
             </ListView.View>
         </ListView>

@@ -38,7 +38,8 @@
             <TextBox Grid.Row="2" Grid.Column="1" Name="TextBoxCarDayRate" Text="50" Margin="3" />
             <TextBox Grid.Row="3" Grid.Column="1" Name="TextBoxCarBaseRate" Text="0" Margin="3" />
         </Grid>
-        <ListView Name="CarListView" Grid.Row="1">
+        <ListView Name="CarListView" Grid.Row="1"
+                  ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Type" DisplayMemberBinding="{Binding AutoKlasse}"/>

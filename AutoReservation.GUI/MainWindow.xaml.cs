@@ -24,8 +24,6 @@ namespace AutoReservation.GUI
     /// </summary>
     public partial class MainWindow : Window
     {
-        private IAutoReservationService autoReservationService;
-        private ChannelFactory<IAutoReservationService> channelFactory;
         private ObservableCollection<ReservationDto> reservations;
         private ObservableCollection<KundeDto> clients;
         private ObservableCollection<AutoDto> cars;
@@ -34,17 +32,14 @@ namespace AutoReservation.GUI
         public MainWindow()
         {
             InitializeComponent();
-            InitializeCounter();
         }
 
         private void InitializeCounter()
         {
-            channelFactory = new ChannelFactory<IAutoReservationService>("AutoReservationService");
-            autoReservationService = channelFactory.CreateChannel();
 
-            cars = new ObservableCollection<AutoDto>(autoReservationService.AllAutos);
-            clients = new ObservableCollection<KundeDto>(autoReservationService.AllKunden);
-            reservations = new ObservableCollection<ReservationDto>(autoReservationService.AllReservationen);
+            //cars = new ObservableCollection<AutoDto>(autoReservationService.AllAutos);
+            //clients = new ObservableCollection<KundeDto>(autoReservationService.AllKunden);
+            //reservations = new ObservableCollection<ReservationDto>(autoReservationService.AllReservationen);
 
             //CarListView.ItemsSource = cars;
             //ClientListView.ItemsSource = clients;

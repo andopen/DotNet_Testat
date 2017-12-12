@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoReservation.GUI"
         xmlns:Views="clr-namespace:AutoReservation.GUI.Views"
+        xmlns:local1="clr-namespace:AutoReservation.GUI.ViewModels"
         mc:Ignorable="d"
         Title="Car Reservation Application" Height="350" Width="525">
     <Grid>
@@ -20,13 +21,16 @@
         </Grid.ColumnDefinitions>
         <TabControl Name="MainWindowTabControl" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5">
             <TabItem Header="Car">
-                <Views:CarView x:Name="vCarView"/>
+                <Views:CarView x:Name="vCarView"
+                               DataContext="{Binding Path=CarViewModel, Mode=OneWay}"/>
             </TabItem>
             <TabItem Header="Client">
-                <Views:ClientView x:Name="vClientView"/>
+                <Views:ClientView x:Name="vClientView"
+                                  DataContext="{Binding Path=ClientViewModel, Mode=OneWay}"/>
             </TabItem>
             <TabItem Header="Reservation">
-                <Views:ReservationView x:Name="vReservationView"/>
+                <Views:ReservationView x:Name="vReservationView"
+                                       DataContext="{Binding Path=ReservationViewModel, Mode=OneWay}"/>
             </TabItem>
         </TabControl>
     </Grid>

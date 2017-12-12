@@ -36,7 +36,8 @@
             <TextBox Grid.Row="1" Grid.Column="1" Text="First Name" Margin="3" />
             <DatePicker Grid.Row="2" Grid.Column="1" Margin="3" />
         </Grid>
-        <ListView Name="ClientListView" Grid.Row="1">
+        <ListView Name="ClientListView" Grid.Row="1"
+                  ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding Nachname}"/>
