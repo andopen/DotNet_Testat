@@ -15,7 +15,6 @@ namespace AutoReservation.GUI.ViewModels
         public ReservationViewModel ReservationViewModel { get; }
         protected IAutoReservationService Service { get; private set; }
 
-        public bool ServiceExists => Service != null;
 
         public MainWindowViewModel()
         {

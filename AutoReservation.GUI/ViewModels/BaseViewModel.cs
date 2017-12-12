@@ -41,6 +41,9 @@ namespace AutoReservation.GUI.ViewModels
 
         protected IAutoReservationService Service { get; private set; }
 
+        public bool ServiceExists => Service != null;
+
+
         public void Init(IAutoReservationService service)
         {
             Service = service;

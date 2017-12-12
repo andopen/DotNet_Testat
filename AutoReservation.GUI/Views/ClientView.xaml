@@ -50,7 +50,7 @@
             <Button Content="Delete" Margin="1"/>
             <Button Content="Save" Margin="1"/>
             <Button Content="Add" Margin="1"/>
-            <Button Content="Refresh" Margin="1"/>
+            <Button Content="Refresh" Margin="1" Command="{Binding LoadCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>
