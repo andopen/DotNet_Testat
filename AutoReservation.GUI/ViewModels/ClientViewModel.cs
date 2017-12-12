@@ -22,9 +22,17 @@ namespace AutoReservation.GUI.ViewModels
             SelectedItem = items.FirstOrDefault();
         }
 
-        private bool CanLoad()
+        private bool CanLoad() => ServiceExists;
+
+        private RelayCommand newCommand;
+
+        public ICommand NewCommand => newCommand ?? (newCommand = new RelayCommand(param => New(), () => CanNew()));
+
+        protected void New()
         {
-            return ServiceExists;
+            items.Add(new KundeDto());
         }
+
+        private bool CanNew() => ServiceExists;
     }
 }
