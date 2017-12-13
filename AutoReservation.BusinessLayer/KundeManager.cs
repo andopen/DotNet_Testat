@@ -69,7 +69,7 @@ namespace AutoReservation.BusinessLayer
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    throw CreateOptimisticConcurrencyException<Kunde>(context, kunde);
+                    throw CreateOptimisticConcurrencyExceptionOnDelete<Kunde>(context, kunde);
                 }
             }
         }

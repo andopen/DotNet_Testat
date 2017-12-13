@@ -203,5 +203,10 @@ namespace AutoReservation.Service.Wcf
                 throw new FaultException<AutoUnavailableFault>(new AutoUnavailableFault(), ex.Message);
             }
         }
+
+        public bool IsAutoAvailable(int autoId, DateTime von, DateTime bis)
+        {
+            return ReservationManager.AvailabilityCheck(autoId, von, bis);
+        }
     }
 }

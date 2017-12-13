@@ -23,7 +23,7 @@ namespace AutoReservation.BusinessLayer.Testing
         {
             Reservation reservation = new Reservation { ReservationsNr = 4, AutoId = 1, KundeId = 1, Von = new DateTime(2017, 10, 10), Bis = new DateTime(2018, 10, 10) };
 
-            Assert.IsTrue(ReservationManager.AvailabilityCheck(reservation));
+            Assert.IsTrue(ReservationManager.AvailabilityCheck(reservation.ReservationsNr, reservation.AutoId, reservation.Von, reservation.Bis));
         }
 
         [TestMethod]
@@ -31,7 +31,7 @@ namespace AutoReservation.BusinessLayer.Testing
         {
             Reservation reservation = new Reservation { ReservationsNr = 4, AutoId = 1, KundeId = 1, Von = new DateTime(2020, 01, 20), Bis = new DateTime(2020, 01, 30)};
 
-            Assert.IsTrue(ReservationManager.AvailabilityCheck(reservation));
+            Assert.IsTrue(ReservationManager.AvailabilityCheck(reservation.ReservationsNr, reservation.AutoId, reservation.Von, reservation.Bis));
         }
         
         [TestMethod]
@@ -39,7 +39,7 @@ namespace AutoReservation.BusinessLayer.Testing
         {
             Reservation reservation = new Reservation { ReservationsNr = 4, AutoId = 1, KundeId = 1, Von = new DateTime(2020, 01, 15), Bis = new DateTime(2020, 01, 30) };
 
-            Assert.IsFalse(ReservationManager.AvailabilityCheck(reservation));
+            Assert.IsFalse(ReservationManager.AvailabilityCheck(reservation.ReservationsNr, reservation.AutoId, reservation.Von, reservation.Bis));
         }
 
         [TestMethod]
@@ -47,7 +47,7 @@ namespace AutoReservation.BusinessLayer.Testing
         {
             Reservation reservation = new Reservation { ReservationsNr = 4, AutoId = 1, KundeId = 1, Von = new DateTime(2020, 01, 05), Bis = new DateTime(2020, 01, 15) };
 
-            Assert.IsFalse(ReservationManager.AvailabilityCheck(reservation));
+            Assert.IsFalse(ReservationManager.AvailabilityCheck(reservation.ReservationsNr, reservation.AutoId, reservation.Von, reservation.Bis));
         }
 
         [TestMethod]
@@ -55,7 +55,7 @@ namespace AutoReservation.BusinessLayer.Testing
         {
             Reservation reservation = new Reservation { ReservationsNr = 4, AutoId = 1, KundeId = 1, Von = new DateTime(2020, 01, 10), Bis = new DateTime(2020, 01, 20) };
 
-            Assert.IsFalse(ReservationManager.AvailabilityCheck(reservation));
+            Assert.IsFalse(ReservationManager.AvailabilityCheck(reservation.ReservationsNr, reservation.AutoId, reservation.Von, reservation.Bis));
         }
     }
 }

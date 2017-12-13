@@ -300,6 +300,42 @@ namespace AutoReservation.Service.Wcf.Testing
 
         #endregion
 
+        #region Delete with optimistic concurrency violation
+        [TestMethod]
+        [ExpectedException(typeof(FaultException<OptimisticConcurrencyFault<AutoDto>>))]
+        public void DeleteAutoWithOptimisticConcurrencyTest()
+        {
+            AutoDto car1 = Target.GetAutoById(1);
+            AutoDto car2 = Target.GetAutoById(1);
+
+            Target.DeleteAuto(car1);
+            Target.DeleteAuto(car2);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(FaultException<OptimisticConcurrencyFault<KundeDto>>))]
+        public void DeleteKundeWithOptimisticConcurrencyTest()
+        {
+            KundeDto client1 = Target.GetKundeById(1);
+            KundeDto client2 = Target.GetKundeById(1);
+
+            Target.DeleteKunde(client1);
+            Target.DeleteKunde(client2);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(FaultException<OptimisticConcurrencyFault<ReservationDto>>))]
+        public void DeleteReservationWithOptimisticConcurrencyTest()
+        {
+            ReservationDto reservation1 = Target.GetReservationByNr(1);
+            ReservationDto reservation2 = Target.GetReservationByNr(1);
+
+            Target.DeleteReservation(reservation1);
+            Target.DeleteReservation(reservation2);
+        }
+
+        #endregion
+
         #region Insert / update invalid time range
 
         [TestMethod]
@@ -349,14 +385,14 @@ namespace AutoReservation.Service.Wcf.Testing
         [TestMethod]
         public void CheckAvailabilityIsTrueTest()
         {
-            Assert.Inconclusive("Test not implemented.");
+            Assert.IsTrue(Target.IsAutoAvailable(1, new DateTime(2017, 10, 10), new DateTime(2018, 10, 10)));
         }
 
         [TestMethod]
-        [ExpectedException(typeof(FaultException<AutoUnavailableFault>))]
         public void CheckAvailabilityIsFalseTest()
         {
-            Assert.Inconclusive("Test not implemented.");
+            ReservationDto reservation = Target.GetReservationByNr(1);
+            Assert.IsFalse(Target.IsAutoAvailable(reservation.Auto.Id, reservation.Von, reservation.Bis));
         }
 
         #endregion

@@ -40,16 +40,16 @@ namespace AutoReservation.BusinessLayer
 
         public Reservation Insert(Reservation reservation)
         {
-            if (!DateRangeCheck(reservation))
-            {
-                throw new InvalidDateRangeException("Invalid Date");
-            }
-            else if (!AvailabilityCheck(reservation))
-            {
-                throw new AutoUnavailableException("Reservation Collision");
-            }
             using (AutoReservationContext context = new AutoReservationContext())
             {
+                if (!DateRangeCheck(reservation))
+                {
+                    throw new InvalidDateRangeException("Invalid Date");
+                }
+                else if (!AvailabilityCheck(context, reservation.ReservationsNr, reservation.AutoId, reservation.Von, reservation.Bis))
+                {
+                    throw new AutoUnavailableException("Reservation Collision");
+                }
                 context.Entry(reservation).State = EntityState.Added;
                 context.Entry(reservation).Reference(r => r.Auto).Load();
                 context.Entry(reservation).Reference(r => r.Kunde).Load();
@@ -60,16 +60,16 @@ namespace AutoReservation.BusinessLayer
 
         public Reservation Update(Reservation reservation)
         {
-            if (!DateRangeCheck(reservation))
-            {
-                throw new InvalidDateRangeException("Invalid Date");
-            }
-            else if (!AvailabilityCheck(reservation))
-            {
-                throw new AutoUnavailableException("Reservation Collision");
-            }
             using (AutoReservationContext context = new AutoReservationContext())
             {
+                if (!DateRangeCheck(reservation))
+                {
+                    throw new InvalidDateRangeException("Invalid Date");
+                }
+                else if (!AvailabilityCheck(context, reservation.ReservationsNr, reservation.AutoId, reservation.Von, reservation.Bis)) 
+                {
+                    throw new AutoUnavailableException("Reservation Collision");
+                }
                 try
                 {
                     context.Entry(reservation).State = EntityState.Modified;
@@ -97,7 +97,7 @@ namespace AutoReservation.BusinessLayer
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    throw CreateOptimisticConcurrencyException<Reservation>(context, reservation);
+                    throw CreateOptimisticConcurrencyExceptionOnDelete<Reservation>(context, reservation);
                 }
             }
         }
@@ -111,18 +111,39 @@ namespace AutoReservation.BusinessLayer
             return false;
         }
 
-        public static bool AvailabilityCheck(Reservation reservation)
+        private static bool AvailabilityCheck(AutoReservationContext context, int reservationsNr, int autoId, DateTime von, DateTime bis)
+        {
+            return !context.Reservationen
+            .Any(r =>
+                r.AutoId == autoId &&
+                r.ReservationsNr != reservationsNr &&
+                !(r.Bis <= von ||
+                r.Von >= bis));
+        }
+
+        public static bool AvailabilityCheck(int reservationsNr, int autoId, DateTime von, DateTime bis)
         {
             using (AutoReservationContext context = new AutoReservationContext())
             {
-                return !context.Reservationen
-                .Any(r =>
-                    r.AutoId == reservation.AutoId &&
-                    r.ReservationsNr != reservation.ReservationsNr &&
-                    !(r.Bis <= reservation.Von ||
-                    r.Von >= reservation.Bis));
+                return AvailabilityCheck(context, reservationsNr, autoId, von, bis);
             }
+        }
 
+        private static bool AvailabilityCheck(AutoReservationContext context, int autoId, DateTime von, DateTime bis)
+        {
+            return !context.Reservationen
+            .Any(r =>
+                r.AutoId == autoId &&
+                !(r.Bis <= von ||
+                r.Von >= bis));
+        }
+
+        public static bool AvailabilityCheck(int autoId, DateTime von, DateTime bis)
+        {
+            using (AutoReservationContext context = new AutoReservationContext())
+            {
+                return AvailabilityCheck(context, autoId, von, bis);
+            }
         }
 
     }

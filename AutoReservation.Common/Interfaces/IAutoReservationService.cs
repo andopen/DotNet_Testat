@@ -1,5 +1,6 @@
 ﻿using AutoReservation.Common.DataTransferObjects;
 using AutoReservation.Common.DataTransferObjects.Faults;
+using System;
 using System.Collections.Generic;
 using System.ServiceModel;
 
@@ -63,12 +64,18 @@ namespace AutoReservation.Common.Interfaces
         ReservationDto UpdateReservation(ReservationDto reservation);
 
         [OperationContract]
+        [FaultContract(typeof(OptimisticConcurrencyFault<AutoDto>))]
         void DeleteAuto(AutoDto auto);
 
         [OperationContract]
+        [FaultContract(typeof(OptimisticConcurrencyFault<KundeDto>))]
         void DeleteKunde(KundeDto kunde);
 
         [OperationContract]
+        [FaultContract(typeof(OptimisticConcurrencyFault<ReservationDto>))]
         void DeleteReservation(ReservationDto reservation);
+
+        [OperationContract]
+        bool IsAutoAvailable(int autoId, DateTime von, DateTime bis);
     }
 }
