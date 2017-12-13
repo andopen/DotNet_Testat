@@ -1,2 +1,2 @@
 # DotNet_Testat
-Ignore nothing important. Just a school project
+Ignore. This is nothing important. Just a school project
