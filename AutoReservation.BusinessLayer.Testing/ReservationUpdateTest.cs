@@ -21,12 +21,26 @@ namespace AutoReservation.BusinessLayer.Testing
         [TestMethod]
         public void UpdateReservationTest()
         {
-            Reservation reservation = Target.List[1];
-            reservation.Bis = new DateTime(2070, 01, 10);
+            Reservation reservation = new Reservation()
+            {
+                Von = DateTime.Today.AddDays(30),
+                Bis = DateTime.Today.AddDays(50),
+                AutoId = 1,
+                KundeId = 1
+            };
+            Reservation reservationInserted = Target.Insert(reservation);
+            Assert.AreNotEqual(0, reservationInserted.ReservationsNr);
 
-            Target.Update(reservation);
+            reservationInserted.Von = reservationInserted.Von.AddDays(20);
+            reservationInserted.Bis = reservationInserted.Bis.AddDays(80);
 
-            Assert.AreEqual(reservation.Bis, Target.List.Find(a => reservation.ReservationsNr == a.ReservationsNr).Bis);
+            Reservation reservationUpdated = Target.Update(reservationInserted);
+
+            Assert.AreEqual(reservationInserted.ReservationsNr, reservationUpdated.ReservationsNr);
+            Assert.AreEqual(reservationInserted.Von, reservationUpdated.Von);
+            Assert.AreEqual(reservationInserted.Bis, reservationUpdated.Bis);
+            Assert.AreEqual(reservationInserted.AutoId, reservationUpdated.AutoId);
+            Assert.AreEqual(reservationInserted.KundeId, reservationUpdated.KundeId);
         }
     }
 }

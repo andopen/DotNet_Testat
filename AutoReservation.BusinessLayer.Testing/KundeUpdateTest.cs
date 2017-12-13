@@ -21,12 +21,25 @@ namespace AutoReservation.BusinessLayer.Testing
         [TestMethod]
         public void UpdateKundeTest()
         {
-            Kunde client = Target.List[1];
-            client.Nachname = "Tot";
+            Kunde kunde = new Kunde
+            {
+                Nachname = "Harry",
+                Vorname = "Potter",
+                Geburtsdatum = new DateTime(1976, 12, 12)
+            };
 
-            Target.Update(client);
+            Kunde kundeInserted = Target.Insert(kunde);
+            Assert.AreNotEqual(0, kundeInserted.Id);
 
-            Assert.AreEqual(client.Nachname, Target.List.Find(a => client.Id == a.Id).Nachname);
+            kundeInserted.Nachname = "Morgan";
+            kundeInserted.Vorname = "Freeman";
+
+            Kunde kundeUpdated = Target.Update(kundeInserted);
+
+            Assert.AreEqual(kundeInserted.Id, kundeUpdated.Id);
+            Assert.AreEqual(kundeInserted.Nachname, kundeUpdated.Nachname);
+            Assert.AreEqual(kundeInserted.Vorname, kundeUpdated.Vorname);
+            Assert.AreEqual(kundeInserted.Geburtsdatum, kundeUpdated.Geburtsdatum);
         }
     }
 }

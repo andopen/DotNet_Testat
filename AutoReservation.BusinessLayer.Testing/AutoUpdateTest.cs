@@ -21,12 +21,24 @@ namespace AutoReservation.BusinessLayer.Testing
         [TestMethod]
         public void UpdateAutoTest()
         {
-            Auto auto = Target.List[1];
-            auto.Tagestarif = 10;
+            Auto auto = new StandardAuto()
+            {
+                Marke = "Tesla",
+                Tagestarif = 235
+            };
 
-            Target.Update(auto);
+            Auto autoInserted = Target.Insert(auto);
+            Assert.AreNotEqual(0, autoInserted.Id);
 
-            Assert.AreEqual(auto.Tagestarif, Target.List.Find(a => auto.Id == a.Id).Tagestarif);
+            autoInserted.Marke = "Noname";
+            autoInserted.Tagestarif = 365;
+
+            Auto autoUpdated = Target.Update(auto);
+
+            Assert.AreEqual(autoInserted.GetType(), autoUpdated.GetType());
+            Assert.AreEqual(autoInserted.Id, autoUpdated.Id);
+            Assert.AreEqual(autoInserted.Marke, autoUpdated.Marke);
+            Assert.AreEqual(autoInserted.Tagestarif, autoUpdated.Tagestarif);
         }
     }
 }
