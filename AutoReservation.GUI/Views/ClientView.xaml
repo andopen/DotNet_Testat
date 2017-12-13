@@ -47,7 +47,7 @@
             </ListView.View>
         </ListView>
         <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2">
-            <Button Content="Delete" Margin="1"/>
+            <Button Content="Delete" Margin="1" Command="{Binding DeleteCommand}"/>
             <Button Content="Save" Margin="1" Command="{Binding SaveCommand}"/>
             <Button Content="New" Margin="1" Command="{Binding NewCommand}"/>
             <Button Content="Refresh" Margin="1" Command="{Binding LoadCommand}"/>

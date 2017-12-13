@@ -2,6 +2,7 @@
 using AutoReservation.GUI.Commands;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
@@ -32,7 +33,7 @@ namespace AutoReservation.GUI.ViewModels
 
         protected void New()
         {
-            items.Add(new KundeDto());
+            items.Add(new KundeDto(){ Geburtsdatum = (DateTime)default(SqlDateTime), Vorname = "todo", Nachname = "verification"});
         }
 
         private bool CanNew() => ServiceExists;
@@ -50,7 +51,6 @@ namespace AutoReservation.GUI.ViewModels
                     if (client.Id == default(int))
                     {
                         Service.InsertKunde(client);
-                        Load();
                     }
                     else
                     {
@@ -66,6 +66,30 @@ namespace AutoReservation.GUI.ViewModels
         }
 
         private bool CanSaveData() => ServiceExists;
+
+        private RelayCommand deleteCommand;
+
+        public ICommand DeleteCommand
+        {
+            get
+            {
+                return deleteCommand ?? (deleteCommand = new RelayCommand(param => Delete(), () => CanDelete()));
+            }
+        }
+
+        private void Delete()
+        {
+            Service.DeleteKunde(SelectedItem);
+            Load();
+        }
+
+        private bool CanDelete()
+        {
+            return
+                ServiceExists &&
+                SelectedItem != null &&
+                SelectedItem.Id != default(int);
+        }
 
     }
 }
