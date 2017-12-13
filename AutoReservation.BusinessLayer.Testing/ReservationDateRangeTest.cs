@@ -28,7 +28,7 @@ namespace AutoReservation.BusinessLayer.Testing
         public void ScenarioOkay02Test()
         {
             Reservation reservation = Target.List[1];
-            reservation.Bis = new DateTime(2020, 01, 11);
+            reservation.Bis = reservation.Von.AddDays(1);
 
             Assert.IsTrue(ReservationManager.DateRangeCheck(reservation));
         }
@@ -37,7 +37,7 @@ namespace AutoReservation.BusinessLayer.Testing
         public void ScenarioNotOkay01Test()
         {
             Reservation reservation = Target.List[1];
-            reservation.Bis = new DateTime(2020, 01, 10);
+            reservation.Bis = reservation.Von;
 
             Assert.IsFalse(ReservationManager.DateRangeCheck(reservation));
         }
@@ -46,7 +46,7 @@ namespace AutoReservation.BusinessLayer.Testing
         public void ScenarioNotOkay02Test()
         {
             Reservation reservation = Target.List[1];
-            reservation.Bis = reservation.Von;
+            reservation.Bis = reservation.Von.AddDays(-10);
 
             Assert.IsFalse(ReservationManager.DateRangeCheck(reservation));
         }
