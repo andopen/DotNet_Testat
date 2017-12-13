@@ -109,9 +109,13 @@ namespace AutoReservation.Service.Wcf.Testing
         {
             AutoDto car = new AutoDto { Marke = "Fiat Punto", Tagestarif = 50, AutoKlasse = AutoKlasse.Standard };
 
-            int id = Target.InsertAuto(car).Id;
+            AutoDto carInserted = Target.InsertAuto(car);
 
-            Assert.IsNotNull(Target.GetAutoById(id));
+            Assert.IsNotNull(carInserted);
+            Assert.AreNotEqual(0, carInserted.Id);
+            Assert.AreEqual(car.Marke, carInserted.Marke);
+            Assert.AreEqual(car.Tagestarif, carInserted.Tagestarif);
+            Assert.AreEqual(car.AutoKlasse, carInserted.AutoKlasse);
         }
 
         [TestMethod]
@@ -119,9 +123,13 @@ namespace AutoReservation.Service.Wcf.Testing
         {
             KundeDto client = new KundeDto { Nachname = "Nass", Vorname = "Anna", Geburtsdatum = new DateTime(1981, 05, 05) };
 
-            int id = Target.InsertKunde(client).Id;
+            KundeDto clientInserted = Target.InsertKunde(client);
 
-            Assert.IsNotNull(Target.GetKundeById(id));
+            Assert.IsNotNull(clientInserted);
+            Assert.AreNotEqual(0, clientInserted);
+            Assert.AreEqual(client.Nachname, clientInserted.Nachname);
+            Assert.AreEqual(client.Vorname, clientInserted.Vorname);
+            Assert.AreEqual(client.Geburtsdatum, clientInserted.Geburtsdatum);
         }
 
         [TestMethod]
@@ -129,9 +137,14 @@ namespace AutoReservation.Service.Wcf.Testing
         {
             ReservationDto reservation = new ReservationDto { Auto = Target.GetAutoById(1), Kunde = Target.GetKundeById(1) , Von = new DateTime(2010, 01, 10), Bis = new DateTime(2010, 01, 20) };
 
-            int id = Target.InsertReservation(reservation).ReservationsNr;
+            ReservationDto reservationInserted = Target.InsertReservation(reservation);
 
-            Assert.IsNotNull(Target.GetReservationByNr(id));
+            Assert.IsNotNull(reservationInserted);
+            Assert.AreNotEqual(0, reservationInserted.ReservationsNr);
+            Assert.AreEqual(reservation.Auto.Id, reservationInserted.Auto.Id);
+            Assert.AreEqual(reservation.Kunde.Id, reservationInserted.Kunde.Id);
+            Assert.AreEqual(reservation.Bis, reservationInserted.Bis);
+            Assert.AreEqual(reservation.Von, reservationInserted.Von);
         }
 
         #endregion
@@ -169,34 +182,74 @@ namespace AutoReservation.Service.Wcf.Testing
         [TestMethod]
         public void UpdateAutoTest()
         {
-            AutoDto car = Target.GetAutoById(1);
+            AutoDto auto = new AutoDto()
+            {
+                Marke = "Tesla",
+                Tagestarif = 235
+            };
 
-            car.Marke = "Blah!";
-            Target.UpdateAuto(car);
+            AutoDto autoInserted = Target.InsertAuto(auto);
+            Assert.AreNotEqual(0, autoInserted.Id);
 
-            Assert.AreEqual(Target.GetAutoById(1).Marke, car.Marke);
+            autoInserted.Marke = "Noname";
+            autoInserted.Tagestarif = 365;
+
+            AutoDto autoUpdated = Target.UpdateAuto(autoInserted);
+
+            Assert.AreEqual(autoInserted.AutoKlasse, autoUpdated.AutoKlasse);
+            Assert.AreEqual(autoInserted.Id, autoUpdated.Id);
+            Assert.AreEqual(autoInserted.Marke, autoUpdated.Marke);
+            Assert.AreEqual(autoInserted.Tagestarif, autoUpdated.Tagestarif);
+            Assert.AreEqual(autoInserted.Basistarif, autoUpdated.Basistarif);
         }
 
         [TestMethod]
         public void UpdateKundeTest()
         {
-            KundeDto client = Target.GetKundeById(1);
+            KundeDto kunde = new KundeDto
+            {
+                Nachname = "Harry",
+                Vorname = "Potter",
+                Geburtsdatum = new DateTime(1976, 12, 12)
+            };
 
-            client.Nachname = "Poop";
-            Target.UpdateKunde(client);
+            KundeDto kundeInserted = Target.InsertKunde(kunde);
+            Assert.AreNotEqual(0, kundeInserted.Id);
 
-            Assert.AreEqual(Target.GetKundeById(1).Nachname, client.Nachname);
+            kundeInserted.Nachname = "Morgan";
+            kundeInserted.Vorname = "Freeman";
+
+            KundeDto kundeUpdated = Target.UpdateKunde(kundeInserted);
+
+            Assert.AreEqual(kundeInserted.Id, kundeUpdated.Id);
+            Assert.AreEqual(kundeInserted.Nachname, kundeUpdated.Nachname);
+            Assert.AreEqual(kundeInserted.Vorname, kundeUpdated.Vorname);
+            Assert.AreEqual(kundeInserted.Geburtsdatum, kundeUpdated.Geburtsdatum);
         }
 
         [TestMethod]
         public void UpdateReservationTest()
         {
-            ReservationDto reservation = Target.GetReservationByNr(1);
+            ReservationDto reservation = new ReservationDto()
+            {
+                Von = DateTime.Today.AddDays(30),
+                Bis = DateTime.Today.AddDays(50),
+                Auto = Target.GetAutoById(1),
+                Kunde = Target.GetKundeById(1)
+            };
+            ReservationDto reservationInserted = Target.InsertReservation(reservation);
+            Assert.AreNotEqual(0, reservationInserted.ReservationsNr);
 
-            reservation.Kunde = Target.GetKundeById(2);
-            Target.UpdateReservation(reservation);
+            reservationInserted.Von = reservationInserted.Von.AddDays(20);
+            reservationInserted.Bis = reservationInserted.Bis.AddDays(80);
 
-            Assert.AreEqual(Target.GetReservationByNr(1).Kunde.Id, reservation.Kunde.Id);
+            ReservationDto reservationUpdated = Target.UpdateReservation(reservationInserted);
+
+            Assert.AreEqual(reservationInserted.ReservationsNr, reservationUpdated.ReservationsNr);
+            Assert.AreEqual(reservationInserted.Von, reservationUpdated.Von);
+            Assert.AreEqual(reservationInserted.Bis, reservationUpdated.Bis);
+            Assert.AreEqual(reservationInserted.Auto.Id, reservationUpdated.Auto.Id);
+            Assert.AreEqual(reservationInserted.Kunde.Id, reservationUpdated.Kunde.Id);
         }
 
         #endregion
@@ -273,7 +326,7 @@ namespace AutoReservation.Service.Wcf.Testing
         {
             ReservationDto reservation = Target.GetReservationByNr(1);
 
-            reservation.Bis = new DateTime(2010, 10, 10);
+            reservation.Bis = reservation.Von.AddDays(-10);
 
             Target.UpdateReservation(reservation);
         }

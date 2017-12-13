@@ -33,7 +33,7 @@ namespace AutoReservation.BusinessLayer.Testing
             autoInserted.Marke = "Noname";
             autoInserted.Tagestarif = 365;
 
-            Auto autoUpdated = Target.Update(auto);
+            Auto autoUpdated = Target.Update(autoInserted);
 
             Assert.AreEqual(autoInserted.GetType(), autoUpdated.GetType());
             Assert.AreEqual(autoInserted.Id, autoUpdated.Id);
