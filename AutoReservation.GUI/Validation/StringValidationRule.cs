@@ -38,7 +38,7 @@ namespace AutoReservation.GUI.Validation
             {
                 return new ValidationResult(false, "Value can't be empty");
             }
-            else if(str.Length < Min || str.Length > Max)
+            else if(str.Length < Min || Max > 0 && str.Length > Max)
             {
                 return new ValidationResult(false, $"String length has to be in the range: {Min} - {Max}");
             }
