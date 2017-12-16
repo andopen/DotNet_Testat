@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoReservation.GUI.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,19 @@ namespace AutoReservation.GUI.Views
         public ClientView()
         {
             InitializeComponent();
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to remove the client permanently?", "Delete Client", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+                var viewModel = (ClientViewModel)DataContext;
+                if (viewModel.DeleteCommand.CanExecute(null))
+                {
+                    viewModel.DeleteCommand.Execute(null);
+                }
+            }
         }
     }
 }

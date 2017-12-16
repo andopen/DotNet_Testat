@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AutoReservation.GUI.Views"
+             xmlns:c="clr-namespace:AutoReservation.GUI.Validation"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
@@ -32,22 +34,49 @@
             <Label Grid.Row="0" Grid.Column="0" Content="Name" />
             <Label Grid.Row="1" Grid.Column="0" Content="First Name" />
             <Label Grid.Row="2" Grid.Column="0" Content="Birthday" />
-            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SelectedItem.Nachname}" Margin="3" />
-            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding SelectedItem.Vorname}" Margin="3" />
-            <DatePicker Grid.Row="2" Grid.Column="1" SelectedDate="{Binding SelectedItem.Geburtsdatum}" Margin="3" />
+            <TextBox Grid.Row="0" Grid.Column="1" MaxLength="20" Margin="3">
+                <TextBox.Text>
+                    <Binding Path="SelectedItem.Nachname">
+                        <Binding.ValidationRules>
+                            <c:StringValidationRule Max="20" CanBeEmpty="false"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <TextBox Grid.Row="1" Grid.Column="1" MaxLength="20"  Margin="3">
+                <TextBox.Text>
+                    <Binding Path="SelectedItem.Vorname">
+                        <Binding.ValidationRules>
+                            <c:StringValidationRule Max="20" CanBeEmpty="false"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <DatePicker Grid.Row="2" Grid.Column="1" DisplayDateEnd="{x:Static sys:DateTime.Today}" DisplayDateStart="1/1/1900" Margin="3">
+                <DatePicker.Text>
+                    <Binding Path="SelectedItem.Geburtsdatum" UpdateSourceTrigger="LostFocus" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <c:DateValidationRule StartDate="1/1/1900" EndDate="{x:Static sys:DateTime.Today}"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </DatePicker.Text>
+            </DatePicker>
+
         </Grid>
-        <ListView Name="ClientListView" Grid.Row="1"
-                  ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding Nachname}"/>
-                    <GridViewColumn Header="First Name" DisplayMemberBinding="{Binding Vorname}"/>
-                    <GridViewColumn Header="Birthday" DisplayMemberBinding="{Binding Geburtsdatum}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <DataGrid Grid.Row="1"
+                      Name="ClientDataGrid" IsSynchronizedWithCurrentItem="True" AutoGenerateColumns="False"
+                      SelectionMode="Single" IsReadOnly="True" GridLinesVisibility="None" SelectionUnit="FullRow"
+                      CanUserResizeRows="False"
+                      ItemsSource="{Binding Items}" 
+                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nachname" Binding="{Binding Nachname}" />
+                <DataGridTextColumn Header="Vorname" Binding="{Binding Vorname}" />
+                <DataGridTextColumn Header="Geburtsdatum" Binding="{Binding Geburtsdatum, StringFormat=\{0:dd.MM.yyyy\}, Mode=TwoWay}" />
+            </DataGrid.Columns>
+        </DataGrid>
         <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2">
-            <Button Content="Delete" Margin="1" Command="{Binding DeleteCommand}"/>
+            <Button Content="Delete" Margin="1" Click="Delete_Click"/>
             <Button Content="Save" Margin="1" Command="{Binding SaveCommand}"/>
             <Button Content="New" Margin="1" Command="{Binding NewCommand}"/>
             <Button Content="Refresh" Margin="1" Command="{Binding LoadCommand}"/>
