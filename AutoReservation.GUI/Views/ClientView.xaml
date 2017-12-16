@@ -31,7 +31,7 @@
                 <ColumnDefinition Width="70" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Label Grid.Row="0" Grid.Column="0" Content="Name" />
+            <Label Grid.Row="0" Grid.Column="0" Content="Last Name" />
             <Label Grid.Row="1" Grid.Column="0" Content="First Name" />
             <Label Grid.Row="2" Grid.Column="0" Content="Birthday" />
             <TextBox Grid.Row="0" Grid.Column="1" MaxLength="20" Margin="3">
@@ -70,9 +70,9 @@
                       ItemsSource="{Binding Items}" 
                       SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Nachname" Binding="{Binding Nachname}" />
-                <DataGridTextColumn Header="Vorname" Binding="{Binding Vorname}" />
-                <DataGridTextColumn Header="Geburtsdatum" Binding="{Binding Geburtsdatum, StringFormat=\{0:dd.MM.yyyy\}, Mode=TwoWay}" />
+                <DataGridTextColumn Header="Last Name" Binding="{Binding Nachname}" />
+                <DataGridTextColumn Header="First Name" Binding="{Binding Vorname}" />
+                <DataGridTextColumn Header="Birthdate" Binding="{Binding Geburtsdatum, StringFormat=\{0:dd.MM.yyyy\}, Mode=TwoWay}" />
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2">
