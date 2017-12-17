@@ -21,6 +21,7 @@
             </CollectionViewSource.Source>
         </CollectionViewSource>
         <converters:AutoKlasseEnumConverter x:Key="AutoKlasseEnumConverter" />
+        <converters:BasistarifVisibilityConverter x:Key="BasistarifVisibilityConverter"/>
     </UserControl.Resources>
 
     <Grid>
@@ -67,16 +68,16 @@
                 <TextBox.Text>
                     <Binding Path="SelectedItem.Tagestarif">
                         <Binding.ValidationRules>
-                            <c:StringValidationRule Number="True" CanBeEmpty="false"/>
+                            <c:NumberValidationRule Min="1" Max="9999"/>
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <TextBox Grid.Row="3" Grid.Column="1" Margin="3">
+                    <TextBox Grid.Row="3" Grid.Column="1" Margin="3" Visibility="{Binding SelectedItem.AutoKlasse, Converter={StaticResource BasistarifVisibilityConverter}, Mode=TwoWay}">
                 <TextBox.Text>
                     <Binding Path="SelectedItem.Basistarif">
                         <Binding.ValidationRules>
-                            <c:StringValidationRule Number="True" CanBeEmpty="false"/>
+                            <c:NumberValidationRule Min="1" Max="9999"/>
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>

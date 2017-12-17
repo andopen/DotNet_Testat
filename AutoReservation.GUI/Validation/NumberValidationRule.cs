@@ -9,33 +9,32 @@ using System.Windows.Controls;
 
 namespace AutoReservation.GUI.Validation
 {
-    public class StringValidationRule : ValidationRule
+    public class NumberValidationRule : ValidationRule
     {
-        public StringValidationRule()
+        public NumberValidationRule()
         {
         }
 
         public int Min { get; set; }
         public int Max { get; set; }
-        public bool CanBeEmpty { get; set; }
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            string str = "";
+            int number=0;
 
-            if (!(value is string))
+            try
             {
-                return new ValidationResult(false, "Value is not a string");
+                if (((string)value).Length > 0)
+                    number = Int32.Parse((String)value);
             }
-            str = (string)value;
+            catch (Exception e)
+            {
+                return new ValidationResult(false, $"Illegal characters or {e.Message}");
+            }
 
-            if (!CanBeEmpty && str.Length == 0)
+            if (number < Min || number > Max)
             {
-                return new ValidationResult(false, "Value can't be empty");
-            }
-            else if(str.Length < Min || Max > 0 && str.Length > Max)
-            {
-                return new ValidationResult(false, $"String length has to be in the range: {Min} - {Max}");
+                return new ValidationResult(false, $"Number has to be in range: {Min} - {Max}");
             }
 
             return new ValidationResult(true, null);

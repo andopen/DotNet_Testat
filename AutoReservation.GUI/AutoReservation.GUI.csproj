@@ -66,7 +66,9 @@
     <Compile Include="Converters\AutoKlasseEnumConverter.cs" />
     <Compile Include="Converters\BooleanToStringConverter.cs" />
     <Compile Include="Converters\DetailViewVisibilityConverter.cs" />
+    <Compile Include="Converters\BasistarifVisibilityConverter.cs" />
     <Compile Include="Validation\DateValidationRule.cs" />
+    <Compile Include="Validation\NumberValidationRule.cs" />
     <Compile Include="Validation\StringValidationRule.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CarViewModel.cs" />
