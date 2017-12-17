@@ -10,7 +10,9 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace AutoReservation.GUI.ViewModels
 {
@@ -95,7 +97,6 @@ namespace AutoReservation.GUI.ViewModels
             Service.AllKunden.ToList().ForEach(clients.Add);
             Service.AllReservationen.ToList().ForEach(items.Add);
             SelectedItem = items.FirstOrDefault();
-
         }
 
         private bool CanLoad() => ServiceExists;
@@ -106,7 +107,7 @@ namespace AutoReservation.GUI.ViewModels
 
         protected void New()
         {
-            items.Add(new ReservationDto() { Von = (DateTime)default(SqlDateTime), Bis = (DateTime)default(SqlDateTime) });
+            items.Add(new ReservationDto() { Von = DateTime.Today, Bis = DateTime.Today.AddDays(1) });
         }
 
         private bool CanNew() => ServiceExists;
@@ -142,13 +143,7 @@ namespace AutoReservation.GUI.ViewModels
 
         private RelayCommand deleteCommand;
 
-        public ICommand DeleteCommand
-        {
-            get
-            {
-                return deleteCommand ?? (deleteCommand = new RelayCommand(param => Delete(), () => CanDelete()));
-            }
-        }
+        public ICommand DeleteCommand => deleteCommand ?? (deleteCommand = new RelayCommand(param => Delete(), () => CanDelete()));
 
         private void Delete()
         {
@@ -164,6 +159,49 @@ namespace AutoReservation.GUI.ViewModels
                 SelectedItem.Id != default(int);
         }
 
+        private RelayCommand liveCommand;
+
+        private DispatcherTimer timer;
+        private DispatcherTimer Timer { get => timer ?? (timer = new DispatcherTimer()); }
+
+        public ICommand LiveCommand => liveCommand ?? (liveCommand = new RelayCommand(param => Live(), () => CanLive()));
+
+        private void Live()
+        {
+            if (Timer.IsEnabled)
+            {
+                Timer.Stop();
+            }
+            else
+            {
+                Timer.Interval = TimeSpan.FromSeconds(1);
+                Timer.Tick += (sender, args) =>
+                {
+                    // Do something...
+                    if (LoadCommand.CanExecute(null))
+                    {
+                        LoadCommand.Execute(null);
+                    }
+                };
+                Timer.Start();
+            }
+        }
+        private bool CanLive()
+        {
+            return
+                ServiceExists;
+        }
+
+        public bool IsReservationActive(object r)
+        {
+            ReservationDto reservation = r as ReservationDto;
+            if (reservation != null && reservation.Von <= DateTime.Today && reservation.Bis >= DateTime.Today)
+            {
+                return true;
+            }
+
+            return false;
+        }
 
     }
 }

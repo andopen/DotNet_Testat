@@ -34,7 +34,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
@@ -117,6 +124,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="App.config" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -126,6 +134,10 @@
     <ProjectReference Include="..\AutoReservation.Common\AutoReservation.Common.csproj">
       <Project>{22972439-3FFF-41D2-B5AE-6C06ABC66EB4}</Project>
       <Name>AutoReservation.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AutoReservation.Service.Wcf\AutoReservation.Service.Wcf.csproj">
+      <Project>{73F6E950-15A9-460D-993B-DFE469A9E286}</Project>
+      <Name>AutoReservation.Service.Wcf</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

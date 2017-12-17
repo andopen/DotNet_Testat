@@ -1,4 +1,5 @@
 ﻿using AutoReservation.Common.Interfaces;
+using AutoReservation.Service.Wcf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +19,7 @@ namespace AutoReservation.GUI.ViewModels
 
         public MainWindowViewModel()
         {
-            ChannelFactory<IAutoReservationService> channelFactory = new ChannelFactory<IAutoReservationService>("AutoReservationService");
-            Service = channelFactory.CreateChannel();
-
+            Service = new AutoReservationService();
             CarViewModel = new CarViewModel();
             ClientViewModel = new ClientViewModel();
             ReservationViewModel = new ReservationViewModel();

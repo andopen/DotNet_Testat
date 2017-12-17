@@ -24,40 +24,14 @@ namespace AutoReservation.GUI
     /// </summary>
     public partial class MainWindow : Window
     {
-        private ObservableCollection<ReservationDto> reservations;
-        private ObservableCollection<KundeDto> clients;
-        private ObservableCollection<AutoDto> cars;
-
-
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void InitializeCounter()
+        public void Init()
         {
-
-            //cars = new ObservableCollection<AutoDto>(autoReservationService.AllAutos);
-            //clients = new ObservableCollection<KundeDto>(autoReservationService.AllKunden);
-            //reservations = new ObservableCollection<ReservationDto>(autoReservationService.AllReservationen);
-
-            //CarListView.ItemsSource = cars;
-            //ClientListView.ItemsSource = clients;
-            //ReservationListView.ItemsSource = reservations;
-
-        }
-
-        private void Refresh_Click(object sender, RoutedEventArgs e)
-        {
-        }
-        private void Save_Click(object sender, RoutedEventArgs e)
-        {
-        }
-        private void Add_Click(object sender, RoutedEventArgs e)
-        {
-        }
-        private void Delete_Click(object sender, RoutedEventArgs e)
-        {
+            vReservationView.cbActiveReservations.IsChecked = true;
         }
     }
 }

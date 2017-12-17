@@ -17,10 +17,14 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+
         <Label Grid.Row="0" Grid.Column="0" Content="Reservation-List" FontStyle="Italic" FontWeight="Bold" />
-        <Label Grid.Row="0" Grid.Column="1" Content="Reservation Edit" FontStyle="Italic" FontWeight="Bold" />
-        <Grid Grid.Row="1" Grid.Column="1">
+        <CheckBox Grid.Row="0" Grid.Column="1" Name="cbActiveReservations" Content="Active Reservation" VerticalAlignment="Center" Margin="0,8" Unchecked="cbActiveReservations_Unchecked" Checked="cbActiveReservations_Checked" />
+        <Label Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Content="Reservation Edit" FontStyle="Italic" FontWeight="Bold" />
+        <Grid Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30" />
                 <RowDefinition Height="30" />
@@ -41,7 +45,7 @@
             <DatePicker Grid.Row="2" Grid.Column="1" SelectedDate="{Binding SelectedItem.Von, Mode=TwoWay}" DisplayDateStart="1/1/1900" Margin="3"/>
             <DatePicker Grid.Row="3" Grid.Column="1" SelectedDate="{Binding SelectedItem.Bis, Mode=TwoWay}" DisplayDateStart="1/1/1900" Margin="3"/>
         </Grid>
-        <DataGrid Grid.Row="1"
+        <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                       Name="ReservationDataGrid" IsSynchronizedWithCurrentItem="True" AutoGenerateColumns="False"
                       SelectionMode="Single" IsReadOnly="True" GridLinesVisibility="None" SelectionUnit="FullRow"
                       CanUserResizeRows="False"
@@ -60,6 +64,7 @@
             <Button Content="Save" Margin="1" Command="{Binding SaveCommand}"/>
             <Button Content="New" Margin="1" Command="{Binding NewCommand}"/>
             <Button Content="Refresh" Margin="1" Command="{Binding LoadCommand}"/>
+            <Button Content="Live" Margin="1" Command="{Binding LiveCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>

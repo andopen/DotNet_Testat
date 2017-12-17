@@ -68,7 +68,7 @@ namespace AutoReservation.Service.Wcf
         }
 
         private static void WriteActualMethod()
-            => Console.WriteLine($"Calling: {new StackTrace().GetFrame(1).GetMethod().Name}");
+            => Console.WriteLine($"[{DateTime.Now.TimeOfDay}] Calling: {new StackTrace().GetFrame(1).GetMethod().Name}");
 
         public void DeleteAuto(AutoDto auto)
         {

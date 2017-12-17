@@ -1,4 +1,5 @@
-﻿using AutoReservation.GUI.ViewModels;
+﻿using AutoReservation.Common.DataTransferObjects;
+using AutoReservation.GUI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,27 @@ namespace AutoReservation.GUI.Views
                 {
                     viewModel.DeleteCommand.Execute(null);
                 }
+            }
+        }
+
+
+        private void cbActiveReservations_Checked(object sender, RoutedEventArgs e)
+        {
+            if (ReservationDataGrid != null)
+            {
+                var collectionView = CollectionViewSource.GetDefaultView(ReservationDataGrid.ItemsSource);
+                collectionView.Filter = ((ReservationViewModel)DataContext).IsReservationActive;
+                collectionView.Refresh();
+            }
+        }
+
+        private void cbActiveReservations_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (ReservationDataGrid != null)
+            {
+                var collectionView = CollectionViewSource.GetDefaultView(ReservationDataGrid.ItemsSource);
+                collectionView.Filter = null;
+                collectionView.Refresh();
             }
         }
     }
