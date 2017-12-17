@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using System.Text;
 
 namespace AutoReservation.Common.DataTransferObjects
 {
@@ -72,5 +73,27 @@ namespace AutoReservation.Common.DataTransferObjects
 
         public override string ToString()
             => $"{Id}; {Nachname}; {Vorname}; {Geburtsdatum}; {RowVersion}";
+
+        public override string Validate()
+        {
+            StringBuilder error = new StringBuilder();
+            if (string.IsNullOrEmpty(Nachname))
+            {
+                error.AppendLine("- Lastname is not set.");
+            }
+            if (string.IsNullOrEmpty(Vorname))
+            {
+                error.AppendLine("- Firstname is not set.");
+            }
+            if (Geburtsdatum == DateTime.MinValue)
+            {
+                error.AppendLine("- Birthdate is not set.");
+            }
+
+            if (error.Length == 0) { return null; }
+
+            return error.ToString();
+        }
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using System.Text;
 
 namespace AutoReservation.Common.DataTransferObjects
 {
@@ -86,5 +87,51 @@ namespace AutoReservation.Common.DataTransferObjects
 
         public override string ToString()
             => $"{Id}; {Von}; {Bis}; {Auto}; {Kunde}";
+
+        public override string Validate()
+        {
+            StringBuilder error = new StringBuilder();
+            if (Von == DateTime.MinValue)
+            {
+                error.AppendLine("- From-Date is not set.");
+            }
+            if (Bis == DateTime.MinValue)
+            {
+                error.AppendLine("- Until-Date is not set.");
+            }
+            if (Von > Bis)
+            {
+                error.AppendLine("- From-Date is greater than Until-Date.");
+            }
+            if (Auto == null)
+            {
+                error.AppendLine("- Car is not set.");
+            }
+            else
+            {
+                string autoError = Auto.Validate();
+                if (!string.IsNullOrEmpty(autoError))
+                {
+                    error.AppendLine(autoError);
+                }
+            }
+            if (Kunde == null)
+            {
+                error.AppendLine("- Client is not set.");
+            }
+            else
+            {
+                string kundeError = Kunde.Validate();
+                if (!string.IsNullOrEmpty(kundeError))
+                {
+                    error.AppendLine(kundeError);
+                }
+            }
+
+
+            if (error.Length == 0) { return null; }
+
+            return error.ToString();
+        }
     }
 }

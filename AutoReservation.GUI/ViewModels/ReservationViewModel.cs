@@ -139,7 +139,7 @@ namespace AutoReservation.GUI.ViewModels
             }
         }
 
-        private bool CanSaveData() => ServiceExists;
+        private bool CanSaveData() => ServiceExists && Validate(Items);
 
         private RelayCommand deleteCommand;
 

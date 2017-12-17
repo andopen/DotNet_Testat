@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using System.Text;
 
 namespace AutoReservation.Common.DataTransferObjects
 {
@@ -86,5 +87,27 @@ namespace AutoReservation.Common.DataTransferObjects
 
         public override string ToString()
             => $"{Id}; {Marke}; {Tagestarif}; {Basistarif}; {AutoKlasse}; {RowVersion}";
+
+        public override string Validate()
+        {
+            StringBuilder error = new StringBuilder();
+            if (string.IsNullOrEmpty(marke))
+            {
+                error.AppendLine("- Brand is not set.");
+            }
+            if (tagestarif <= 0)
+            {
+                error.AppendLine("- Daily price has to be greater than 0.");
+            }
+            if (AutoKlasse == AutoKlasse.Luxusklasse && basistarif <= 0)
+            {
+                error.AppendLine("- Base price has to be greater than 0.");
+            }
+
+            if (error.Length == 0) { return null; }
+
+            return error.ToString();
+        }
+
     }
 }

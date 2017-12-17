@@ -1,4 +1,5 @@
 ﻿using AutoReservation.Common.Interfaces;
+using AutoReservation.Common.DataTransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -52,5 +53,37 @@ namespace AutoReservation.GUI.ViewModels
         }
 
         protected abstract void Load();
+
+        protected bool Validate(IEnumerable<IValidatable> items)
+        {
+            var errorText = new StringBuilder();
+            foreach (var item in items)
+            {
+                var error = item.Validate();
+                if (!string.IsNullOrEmpty(error))
+                {
+                    errorText.AppendLine(item.ToString());
+                    errorText.AppendLine(error);
+                }
+            }
+
+            ErrorText = errorText.ToString();
+            return string.IsNullOrEmpty(ErrorText);
+        }
+
+        private string errorText;
+        public string ErrorText
+        {
+            get { return errorText; }
+            set
+            {
+                if (errorText != value)
+                {
+                    errorText = value;
+                    OnPropertyChanged(nameof(ErrorText));
+                }
+            }
+        }
+
     }
 }
