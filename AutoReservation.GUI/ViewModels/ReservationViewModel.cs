@@ -186,21 +186,12 @@ namespace AutoReservation.GUI.ViewModels
                 Timer.Start();
             }
         }
-        private bool CanLive()
-        {
-            return
-                ServiceExists;
-        }
+        private bool CanLive() => ServiceExists;
 
         public bool IsReservationActive(object r)
         {
             ReservationDto reservation = r as ReservationDto;
-            if (reservation != null && reservation.Von <= DateTime.Today && reservation.Bis >= DateTime.Today)
-            {
-                return true;
-            }
-
-            return false;
+            return reservation != null && reservation.Von <= DateTime.Today && reservation.Bis >= DateTime.Today;
         }
 
     }

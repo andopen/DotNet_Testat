@@ -31,6 +31,7 @@ namespace AutoReservation.GUI
 
         public void Init()
         {
+            //Havent found a better way
             vReservationView.cbActiveReservations.IsChecked = true;
         }
     }
