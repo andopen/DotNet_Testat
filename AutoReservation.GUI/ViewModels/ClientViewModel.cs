@@ -83,13 +83,9 @@ namespace AutoReservation.GUI.ViewModels
             Load();
         }
 
-        private bool CanDelete()
-        {
-            return
-                ServiceExists &&
-                SelectedItem != null &&
-                SelectedItem.Id != default(int);
-        }
-
+        private bool CanDelete() => 
+            ServiceExists &&
+            SelectedItem != null &&
+            SelectedItem.Id != default(int);
     }
 }
