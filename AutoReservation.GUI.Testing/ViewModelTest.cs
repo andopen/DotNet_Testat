@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
+using AutoReservation.Common.DataTransferObjects;
 using AutoReservation.Common.Interfaces;
 using AutoReservation.GUI.ViewModels;
 using AutoReservation.Service.Wcf;
@@ -21,7 +22,7 @@ namespace AutoReservation.GUI.Testing
         public IAutoReservationService Service { get; set; }
 
         [TestMethod]
-        public void AutosLoadTest()
+        public void CarsLoadTest()
         {
             CarViewModel vm = new CarViewModel();
             vm.Init(Service);
@@ -36,7 +37,7 @@ namespace AutoReservation.GUI.Testing
         }
 
         [TestMethod]
-        public void KundenLoadTest()
+        public void ClientsLoadTest()
         {
             ClientViewModel vm = new ClientViewModel();
             vm.Init(Service);
