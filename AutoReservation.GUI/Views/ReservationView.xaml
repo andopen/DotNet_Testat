@@ -4,12 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AutoReservation.GUI.Views"
+             xmlns:c="clr-namespace:AutoReservation.GUI.Validation"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="30" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -33,22 +36,30 @@
             <Label Grid.Row="1" Grid.Column="0" Content="Car" />
             <Label Grid.Row="2" Grid.Column="0" Content="From" />
             <Label Grid.Row="3" Grid.Column="0" Content="Until" />
-            <ComboBox Grid.Row="0" Grid.Column="1" Name="ComboBoxClient" Margin="3" />
-            <ComboBox Grid.Row="1" Grid.Column="1" Name="ComboBoxCar" Margin="3" />
-            <DatePicker Grid.Row="2" Grid.Column="1" Name="DatePickerFrom" Margin="3" />
-            <DatePicker Grid.Row="3" Grid.Column="1" Name="DatePickerUntil" Margin="3" />
+            <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Clients}" SelectedValue="{Binding SelectedClientId}" SelectedValuePath="Id" Margin="3" />
+            <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Cars}" SelectedValue="{Binding SelectedCarId}" SelectedValuePath="Id" DisplayMemberPath="Marke" Margin="3" />
+            <DatePicker Grid.Row="2" Grid.Column="1" SelectedDate="{Binding SelectedItem.Von, Mode=TwoWay}" DisplayDateStart="1/1/1900" Margin="3"/>
+            <DatePicker Grid.Row="3" Grid.Column="1" SelectedDate="{Binding SelectedItem.Bis, Mode=TwoWay}" DisplayDateStart="1/1/1900" Margin="3"/>
         </Grid>
-        <ListView Name="ReservationListView" Grid.Row="1"
-                  ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="ReservationNr" DisplayMemberBinding="{Binding ReservationsNr}"/>
-                    <GridViewColumn Header="Client" DisplayMemberBinding="{Binding Kunde.Nachname}"/>
-                    <GridViewColumn Header="Car" DisplayMemberBinding="{Binding Auto.AutoKlasse}"/>
-                    <GridViewColumn Header="From" DisplayMemberBinding="{Binding Von}"/>
-                    <GridViewColumn Header="Until" DisplayMemberBinding="{Binding Bis}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <DataGrid Grid.Row="1"
+                      Name="ReservationDataGrid" IsSynchronizedWithCurrentItem="True" AutoGenerateColumns="False"
+                      SelectionMode="Single" IsReadOnly="True" GridLinesVisibility="None" SelectionUnit="FullRow"
+                      CanUserResizeRows="False"
+                      ItemsSource="{Binding Items}" 
+                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ReservationNr" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="Client" Binding="{Binding Kunde.Nachname}"/>
+                <DataGridTextColumn Header="Car" Binding="{Binding Auto.Marke}"/>
+                <DataGridTextColumn Header="From" Binding="{Binding Von, StringFormat=\{0:dd.MM.yyyy\}, Mode=TwoWay}"/>
+                <DataGridTextColumn Header="Until" Binding="{Binding Bis, StringFormat=\{0:dd.MM.yyyy\}, Mode=TwoWay}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2">
+            <Button Content="Delete" Margin="1" Click="Delete_Click"/>
+            <Button Content="Save" Margin="1" Command="{Binding SaveCommand}"/>
+            <Button Content="New" Margin="1" Command="{Binding NewCommand}"/>
+            <Button Content="Refresh" Margin="1" Command="{Binding LoadCommand}"/>
+        </StackPanel>
     </Grid>
 </UserControl>

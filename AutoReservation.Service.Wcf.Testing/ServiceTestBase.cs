@@ -69,7 +69,7 @@ namespace AutoReservation.Service.Wcf.Testing
         {
             ReservationDto reservation = Target.GetReservationByNr(1);
 
-            Assert.AreEqual(reservation.ReservationsNr, Target.GetReservationByNr(1).ReservationsNr);
+            Assert.AreEqual(reservation.Id, Target.GetReservationByNr(1).Id);
         }
 
         #endregion
@@ -140,7 +140,7 @@ namespace AutoReservation.Service.Wcf.Testing
             ReservationDto reservationInserted = Target.InsertReservation(reservation);
 
             Assert.IsNotNull(reservationInserted);
-            Assert.AreNotEqual(0, reservationInserted.ReservationsNr);
+            Assert.AreNotEqual(0, reservationInserted.Id);
             Assert.AreEqual(reservation.Auto.Id, reservationInserted.Auto.Id);
             Assert.AreEqual(reservation.Kunde.Id, reservationInserted.Kunde.Id);
             Assert.AreEqual(reservation.Bis, reservationInserted.Bis);
@@ -238,14 +238,14 @@ namespace AutoReservation.Service.Wcf.Testing
                 Kunde = Target.GetKundeById(1)
             };
             ReservationDto reservationInserted = Target.InsertReservation(reservation);
-            Assert.AreNotEqual(0, reservationInserted.ReservationsNr);
+            Assert.AreNotEqual(0, reservationInserted.Id);
 
             reservationInserted.Von = reservationInserted.Von.AddDays(20);
             reservationInserted.Bis = reservationInserted.Bis.AddDays(80);
 
             ReservationDto reservationUpdated = Target.UpdateReservation(reservationInserted);
 
-            Assert.AreEqual(reservationInserted.ReservationsNr, reservationUpdated.ReservationsNr);
+            Assert.AreEqual(reservationInserted.Id, reservationUpdated.Id);
             Assert.AreEqual(reservationInserted.Von, reservationUpdated.Von);
             Assert.AreEqual(reservationInserted.Bis, reservationUpdated.Bis);
             Assert.AreEqual(reservationInserted.Auto.Id, reservationUpdated.Auto.Id);

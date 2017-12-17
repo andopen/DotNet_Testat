@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
@@ -20,8 +21,8 @@ namespace AutoReservation.GUI.ViewModels
             get { return items; }
         }
 
-        private T selectedItem;
-        public T SelectedItem
+        protected T selectedItem;
+        public virtual T SelectedItem
         {
             get { return selectedItem; }
             set
