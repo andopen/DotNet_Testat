@@ -1,14 +1,9 @@
 ﻿using AutoReservation.Common.Interfaces;
 using AutoReservation.Common.DataTransferObjects;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
-using System.ServiceModel;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace AutoReservation.GUI.ViewModels
 {
