@@ -45,20 +45,6 @@ namespace AutoReservation.GUI.Views
             var viewModel = (ReservationViewModel)DataContext;
             if (viewModel.LiveCommand.CanExecute(null))
             {
-                if (viewModel.IsLive)
-                {
-                    bNew.IsEnabled = true;
-                    bDelete.IsEnabled = true;
-                    bSave.IsEnabled = true;
-                    bRefresh.IsEnabled = true;
-                }
-                else
-                {
-                    bNew.IsEnabled = false;
-                    bDelete.IsEnabled = false;
-                    bSave.IsEnabled = false;
-                    bRefresh.IsEnabled = false;
-                }
                 viewModel.LiveCommand.Execute(null);
             }
 

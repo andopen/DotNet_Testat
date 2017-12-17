@@ -64,6 +64,7 @@
     </ApplicationDefinition>
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Converters\AutoKlasseEnumConverter.cs" />
+    <Compile Include="Converters\BooleanToStringConverter.cs" />
     <Compile Include="Converters\DetailViewVisibilityConverter.cs" />
     <Compile Include="Validation\DateValidationRule.cs" />
     <Compile Include="Validation\StringValidationRule.cs" />

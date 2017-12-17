@@ -11,6 +11,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <converter:DetailViewVisibilityConverter x:Key="DetailViewVisibilityConverter" />
+        <converter:BooleanToStringConverter x:Key="BooleanToStringConverter"/>
     </UserControl.Resources>
 
     <Grid>
@@ -29,7 +30,7 @@
         <Label Grid.Row="0" Grid.Column="0" Content="Reservation-List" FontStyle="Italic" FontWeight="Bold" />
         <CheckBox Grid.Row="0" Grid.Column="1" Name="cbActiveReservations" Content="Active Reservation" VerticalAlignment="Center" Margin="0,8" Unchecked="cbActiveReservations_Unchecked" Checked="cbActiveReservations_Checked" />
         <Label Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Content="Reservation Edit" FontStyle="Italic" FontWeight="Bold" />
-        <Grid Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Visibility="{Binding IsLive, Converter={StaticResource DetailViewVisibilityConverter}, Mode=TwoWay}">
+        <Grid Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Visibility="{Binding IsLive, Converter={StaticResource DetailViewVisibilityConverter}}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30" />
                 <RowDefinition Height="30" />
@@ -65,10 +66,10 @@
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2">
-            <Button Name="bDelete" Content="Delete" Margin="1" Click="Delete_Click"/>
-            <Button Name="bSave" Content="Save" Margin="1" Command="{Binding SaveCommand}"/>
-            <Button Name="bNew" Content="New" Margin="1" Command="{Binding NewCommand}"/>
-            <Button Name="bRefresh" Content="Refresh" Margin="1" Command="{Binding LoadCommand}"/>
+            <Button Name="bDelete" Content="Delete" IsEnabled="{Binding IsLive, Converter={StaticResource BooleanToStringConverter}}" Margin="1" Click="Delete_Click"/>
+            <Button Name="bSave" Content="Save" IsEnabled="{Binding IsLive, Converter={StaticResource BooleanToStringConverter}}" Margin="1" Command="{Binding SaveCommand}"/>
+            <Button Name="bNew" Content="New" IsEnabled="{Binding IsLive, Converter={StaticResource BooleanToStringConverter}}" Margin="1" Command="{Binding NewCommand}"/>
+            <Button Name="bRefresh" Content="Refresh" IsEnabled="{Binding IsLive, Converter={StaticResource BooleanToStringConverter}}" Margin="1" Command="{Binding LoadCommand}"/>
             <Button Name="bLive" Content="Live" Margin="1" Click="Live_Click"/>
         </StackPanel>
     </Grid>
