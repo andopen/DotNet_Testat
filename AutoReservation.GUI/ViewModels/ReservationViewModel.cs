@@ -185,8 +185,11 @@ namespace AutoReservation.GUI.ViewModels
                 };
                 Timer.Start();
             }
+            OnPropertyChanged("IsLive");
         }
         private bool CanLive() => ServiceExists;
+
+        public bool IsLive => Timer.IsEnabled;
 
         public bool IsReservationActive(object r)
         {

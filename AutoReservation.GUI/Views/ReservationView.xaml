@@ -6,8 +6,13 @@
              xmlns:local="clr-namespace:AutoReservation.GUI.Views"
              xmlns:c="clr-namespace:AutoReservation.GUI.Validation"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:converter="clr-namespace:AutoReservation.GUI.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <converter:DetailViewVisibilityConverter x:Key="DetailViewVisibilityConverter" />
+    </UserControl.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
@@ -24,7 +29,7 @@
         <Label Grid.Row="0" Grid.Column="0" Content="Reservation-List" FontStyle="Italic" FontWeight="Bold" />
         <CheckBox Grid.Row="0" Grid.Column="1" Name="cbActiveReservations" Content="Active Reservation" VerticalAlignment="Center" Margin="0,8" Unchecked="cbActiveReservations_Unchecked" Checked="cbActiveReservations_Checked" />
         <Label Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Content="Reservation Edit" FontStyle="Italic" FontWeight="Bold" />
-        <Grid Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2">
+        <Grid Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Visibility="{Binding IsLive, Converter={StaticResource DetailViewVisibilityConverter}, Mode=TwoWay}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30" />
                 <RowDefinition Height="30" />
@@ -60,11 +65,11 @@
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2">
-            <Button Content="Delete" Margin="1" Click="Delete_Click"/>
-            <Button Content="Save" Margin="1" Command="{Binding SaveCommand}"/>
-            <Button Content="New" Margin="1" Command="{Binding NewCommand}"/>
-            <Button Content="Refresh" Margin="1" Command="{Binding LoadCommand}"/>
-            <Button Content="Live" Margin="1" Command="{Binding LiveCommand}"/>
+            <Button Name="bDelete" Content="Delete" Margin="1" Click="Delete_Click"/>
+            <Button Name="bSave" Content="Save" Margin="1" Command="{Binding SaveCommand}"/>
+            <Button Name="bNew" Content="New" Margin="1" Command="{Binding NewCommand}"/>
+            <Button Name="bRefresh" Content="Refresh" Margin="1" Command="{Binding LoadCommand}"/>
+            <Button Name="bLive" Content="Live" Margin="1" Click="Live_Click"/>
         </StackPanel>
     </Grid>
 </UserControl>
