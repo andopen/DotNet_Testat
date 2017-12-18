@@ -95,5 +95,10 @@ namespace AutoReservation.Common.DataTransferObjects
             return error.ToString();
         }
 
+        public override int GetId()
+        {
+            return Id;
+        }
+
     }
 }

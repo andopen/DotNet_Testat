@@ -118,11 +118,6 @@ namespace AutoReservation.GUI.ViewModels
             }
         }
 
-        protected override bool CanDelete() =>
-            ServiceExists &&
-            SelectedItem != null &&
-            SelectedItem.Id != default(int);
-
         protected override void Delete()
         {
             Service.DeleteReservation(SelectedItem);
@@ -130,6 +125,7 @@ namespace AutoReservation.GUI.ViewModels
         }
 
 
+        #region Live Command
         private RelayCommand liveCommand;
 
         private DispatcherTimer timer;
@@ -162,11 +158,14 @@ namespace AutoReservation.GUI.ViewModels
 
         public bool IsLive => Timer.IsEnabled;
 
+        #endregion
+        #region Validation
         public bool IsReservationActive(object r)
         {
             ReservationDto reservation = r as ReservationDto;
             return reservation != null && reservation.Von <= DateTime.Today && reservation.Bis >= DateTime.Today;
         }
+        #endregion
 
     }
 }

@@ -9,7 +9,7 @@ using AutoReservation.GUI.Commands;
 
 namespace AutoReservation.GUI.ViewModels
 {
-    public abstract class BaseViewModel<T> : INotifyPropertyChanged
+    public abstract class BaseViewModel<T> : INotifyPropertyChanged where T : IGetId
     {
         protected readonly ObservableCollection<T> items = new ObservableCollection<T>();
         public event PropertyChangedEventHandler PropertyChanged;
@@ -72,7 +72,11 @@ namespace AutoReservation.GUI.ViewModels
         #region Delete Command
         private RelayCommand deleteCommand;
         public ICommand DeleteCommand => deleteCommand ?? (deleteCommand = new RelayCommand(param => Delete(), () => CanDelete()));
-        protected abstract bool CanDelete();
+        protected bool CanDelete() =>
+            ServiceExists &&
+            SelectedItem != null &&
+            SelectedItem.GetId() != default(int);
+
         protected abstract void Delete();
         #endregion
 

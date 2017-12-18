@@ -46,11 +46,6 @@ namespace AutoReservation.GUI.ViewModels
             }
         }
 
-        protected override bool CanDelete() =>
-            ServiceExists &&
-            SelectedItem != null &&
-            SelectedItem.Id != default(int);
-
         protected override void Delete()
         {
             Service.DeleteKunde(SelectedItem);

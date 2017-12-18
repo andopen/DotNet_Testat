@@ -9,11 +9,13 @@ using System.Threading.Tasks;
 namespace AutoReservation.Common.DataTransferObjects
 {
     [DataContract]
-    public abstract class DtoBase<T> : INotifyPropertyChanged, IValidatable
+    public abstract class DtoBase<T> : INotifyPropertyChanged, IValidatable, IGetId
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
         public abstract string Validate();
+
+        public abstract int GetId();
 
         protected void OnPropertyChanged(string propertyName)
         {
