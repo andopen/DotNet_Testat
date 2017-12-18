@@ -11,10 +11,6 @@ namespace AutoReservation.GUI.ViewModels
 {
     public class ClientViewModel : BaseViewModel<KundeDto>
     {
-        private RelayCommand loadCommand;
-
-        public ICommand LoadCommand => loadCommand ?? (loadCommand = new RelayCommand(param => Load(), () => CanLoad()));
-
         protected override void Load()
         {
             items.Clear();
@@ -22,24 +18,12 @@ namespace AutoReservation.GUI.ViewModels
             SelectedItem = items.FirstOrDefault();
         }
 
-        private bool CanLoad() => ServiceExists;
-
-        private RelayCommand newCommand;
-
-        public ICommand NewCommand => newCommand ?? (newCommand = new RelayCommand(param => New(), () => CanNew()));
-
-        protected void New()
+        protected override void New()
         {
             items.Add(new KundeDto(){ Geburtsdatum = (DateTime)default(SqlDateTime), Vorname = "todo", Nachname = "verification"});
         }
 
-        private bool CanNew() => ServiceExists;
-
-        private RelayCommand saveCommand;
-
-        public ICommand SaveCommand => saveCommand ?? (saveCommand = new RelayCommand(param => SaveData(), () => CanSaveData()));
-
-        private void SaveData()
+        protected override void SaveData()
         {
             try
             {
@@ -62,27 +46,15 @@ namespace AutoReservation.GUI.ViewModels
             }
         }
 
-        private bool CanSaveData() => ServiceExists && Validate(Items);
+        protected override bool CanDelete() =>
+            ServiceExists &&
+            SelectedItem != null &&
+            SelectedItem.Id != default(int);
 
-        private RelayCommand deleteCommand;
-
-        public ICommand DeleteCommand
-        {
-            get
-            {
-                return deleteCommand ?? (deleteCommand = new RelayCommand(param => Delete(), () => CanDelete()));
-            }
-        }
-
-        private void Delete()
+        protected override void Delete()
         {
             Service.DeleteKunde(SelectedItem);
             Load();
         }
-
-        private bool CanDelete() => 
-            ServiceExists &&
-            SelectedItem != null &&
-            SelectedItem.Id != default(int);
     }
 }

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
+using System.Windows.Input;
+using AutoReservation.GUI.Commands;
 
 namespace AutoReservation.GUI.ViewModels
 {
@@ -46,13 +48,39 @@ namespace AutoReservation.GUI.ViewModels
             Service = service;
             Load();
         }
-
+        #region Load Command
+        protected RelayCommand loadCommand;
+        public virtual ICommand LoadCommand => loadCommand ?? (loadCommand = new RelayCommand(param => Load(), () => CanLoad()));
+        protected virtual bool CanLoad() => ServiceExists;
         protected abstract void Load();
+        #endregion
 
-        protected bool Validate(IEnumerable<IValidatable> items)
+        #region New Command
+        protected RelayCommand newCommand;
+        public virtual ICommand NewCommand => newCommand ?? (newCommand = new RelayCommand(param => New(), () => CanNew()));
+        protected virtual bool CanNew() => ServiceExists;
+        protected abstract void New();
+        #endregion
+
+        #region Save Command
+        protected RelayCommand saveCommand;
+        public virtual ICommand SaveCommand => saveCommand ?? (saveCommand = new RelayCommand(param => SaveData(), () => CanSaveData()));
+        protected virtual bool CanSaveData() => ServiceExists && Validate(Items);
+        protected abstract void SaveData();
+        #endregion
+
+        #region Delete Command
+        private RelayCommand deleteCommand;
+        public ICommand DeleteCommand => deleteCommand ?? (deleteCommand = new RelayCommand(param => Delete(), () => CanDelete()));
+        protected abstract bool CanDelete();
+        protected abstract void Delete();
+        #endregion
+
+        #region Validate and Errors
+        protected bool Validate(IEnumerable<T> items)
         {
             var errorText = new StringBuilder();
-            foreach (var item in items)
+            foreach (IValidatable item in items)
             {
                 var error = item.Validate();
                 if (!string.IsNullOrEmpty(error))
@@ -79,6 +107,6 @@ namespace AutoReservation.GUI.ViewModels
                 }
             }
         }
-
+        #endregion
     }
 }
