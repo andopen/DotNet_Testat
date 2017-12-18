@@ -10,7 +10,6 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
             <RowDefinition Height="*" />
             <RowDefinition Height="30" />
         </Grid.RowDefinitions>
@@ -18,10 +17,31 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" Content="Client-List" FontStyle="Italic" FontWeight="Bold" />
-        <Label Grid.Row="0" Grid.Column="1" Content="Client Edit" FontStyle="Italic" FontWeight="Bold" />
-        <Grid Grid.Row="1" Grid.Column="1">
+        <!--Liste-->
+        <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Client-List" FontStyle="Italic" FontWeight="Bold" />
+            <DataGrid Grid.Row="1"
+                      Name="ClientDataGrid" IsSynchronizedWithCurrentItem="True" AutoGenerateColumns="False"
+                      SelectionMode="Single" IsReadOnly="True" GridLinesVisibility="None" SelectionUnit="FullRow"
+                      CanUserResizeRows="False"
+                      ItemsSource="{Binding Items}" 
+                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Last Name" Binding="{Binding Nachname}" />
+                    <DataGridTextColumn Header="First Name" Binding="{Binding Vorname}" />
+                    <DataGridTextColumn Header="Birthdate" Binding="{Binding Geburtsdatum, StringFormat=\{0:dd.MM.yyyy\}, Mode=TwoWay}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <!--Details-->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
                 <RowDefinition Height="30" />
                 <RowDefinition Height="30" />
                 <RowDefinition Height="30" />
@@ -31,10 +51,11 @@
                 <ColumnDefinition Width="70" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Label Grid.Row="0" Grid.Column="0" Content="Last Name" />
-            <Label Grid.Row="1" Grid.Column="0" Content="First Name" />
-            <Label Grid.Row="2" Grid.Column="0" Content="Birthday" />
-            <TextBox Grid.Row="0" Grid.Column="1" MaxLength="20" Margin="3">
+            <Label Grid.ColumnSpan="2" Content="Client Edit" FontStyle="Italic" FontWeight="Bold" />
+            <Label Grid.Row="1" Grid.Column="0" Content="Last Name" />
+            <Label Grid.Row="2" Grid.Column="0" Content="First Name" />
+            <Label Grid.Row="3" Grid.Column="0" Content="Birthday" />
+            <TextBox Grid.Row="1" Grid.Column="1" MaxLength="20" Margin="3">
                 <TextBox.Text>
                     <Binding Path="SelectedItem.Nachname">
                         <Binding.ValidationRules>
@@ -43,7 +64,7 @@
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <TextBox Grid.Row="1" Grid.Column="1" MaxLength="20"  Margin="3">
+            <TextBox Grid.Row="2" Grid.Column="1" MaxLength="20"  Margin="3">
                 <TextBox.Text>
                     <Binding Path="SelectedItem.Vorname">
                         <Binding.ValidationRules>
@@ -52,7 +73,7 @@
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <DatePicker Grid.Row="2" Grid.Column="1" DisplayDateEnd="{x:Static sys:DateTime.Today}" DisplayDateStart="1/1/1900" Margin="3">
+            <DatePicker Grid.Row="3" Grid.Column="1" DisplayDateEnd="{x:Static sys:DateTime.Today}" DisplayDateStart="1/1/1900" Margin="3">
                 <DatePicker.Text>
                     <Binding Path="SelectedItem.Geburtsdatum" UpdateSourceTrigger="LostFocus" Mode="TwoWay">
                         <Binding.ValidationRules>
@@ -66,18 +87,7 @@
             </ScrollViewer>
 
         </Grid>
-        <DataGrid Grid.Row="1"
-                      Name="ClientDataGrid" IsSynchronizedWithCurrentItem="True" AutoGenerateColumns="False"
-                      SelectionMode="Single" IsReadOnly="True" GridLinesVisibility="None" SelectionUnit="FullRow"
-                      CanUserResizeRows="False"
-                      ItemsSource="{Binding Items}" 
-                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Last Name" Binding="{Binding Nachname}" />
-                <DataGridTextColumn Header="First Name" Binding="{Binding Vorname}" />
-                <DataGridTextColumn Header="Birthdate" Binding="{Binding Geburtsdatum, StringFormat=\{0:dd.MM.yyyy\}, Mode=TwoWay}" />
-            </DataGrid.Columns>
-        </DataGrid>
+        <!--Buttons-->
         <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2">
             <Button Content="Delete" Margin="1" Click="Delete_Click"/>
             <Button Content="Save" Margin="1" Command="{Binding SaveCommand}"/>

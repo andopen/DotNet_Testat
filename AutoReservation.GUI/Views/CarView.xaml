@@ -26,7 +26,6 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
             <RowDefinition Height="*" />
             <RowDefinition Height="30" />
         </Grid.RowDefinitions>
@@ -34,10 +33,31 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" Content="Car-List" FontStyle="Italic" FontWeight="Bold" />
-        <Label Grid.Row="0" Grid.Column="1" Content="Car Edit" FontStyle="Italic" FontWeight="Bold" />
-        <Grid Grid.Row="1" Grid.Column="1">
+        <!--Liste-->
+        <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Car-List" FontStyle="Italic" FontWeight="Bold" />
+            <DataGrid Grid.Row="1"
+                      Name="CarDataGrid" IsSynchronizedWithCurrentItem="True" AutoGenerateColumns="False"
+                      SelectionMode="Single" IsReadOnly="True" GridLinesVisibility="None" SelectionUnit="FullRow"
+                      CanUserResizeRows="False"
+                      ItemsSource="{Binding Items}" 
+                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Type" Binding="{Binding AutoKlasse}" />
+                    <DataGridTextColumn Header="Brand" Binding="{Binding Marke}" />
+                    <DataGridTextColumn Header="Day Rate" Binding="{Binding Tagestarif}" />
+                    <DataGridTextColumn Header="Base Rate" Binding="{Binding Basistarif}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <!--Details-->
+        <Grid Grid.Row="0" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
                 <RowDefinition Height="30" />
                 <RowDefinition Height="30" />
                 <RowDefinition Height="30" />
@@ -48,14 +68,15 @@
                 <ColumnDefinition Width="70" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Label Grid.Row="0" Grid.Column="0" Content="Car Type" />
-            <Label Grid.Row="1" Grid.Column="0" Content="Car Brand" />
-            <Label Grid.Row="2" Grid.Column="0" Content="Day Rate" />
-            <Label Grid.Row="3" Grid.Column="0" Content="Base Rate" />
-            <ComboBox Grid.Row="0" Grid.Column="1" Name="ComboBoxCarType" Margin="3"
+            <Label Grid.ColumnSpan="2" Content="Car Edit" FontStyle="Italic" FontWeight="Bold" />
+            <Label Grid.Row="1" Content="Car Type" />
+            <Label Grid.Row="2" Content="Car Brand" />
+            <Label Grid.Row="3" Content="Day Rate" />
+            <Label Grid.Row="4" Content="Base Rate" />
+            <ComboBox Grid.Row="1" Grid.Column="1" Name="ComboBoxCarType" Margin="3"
                       ItemsSource="{Binding Source={StaticResource AutoKlassen}}"
                       SelectedIndex="{Binding SelectedItem.AutoKlasse, Converter={StaticResource AutoKlasseEnumConverter}}"  />
-            <TextBox Grid.Row="1" Grid.Column="1" MaxLength="20" Margin="3">
+            <TextBox Grid.Row="2" Grid.Column="1" MaxLength="20" Margin="3">
                 <TextBox.Text>
                     <Binding Path="SelectedItem.Marke">
                         <Binding.ValidationRules>
@@ -64,7 +85,7 @@
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <TextBox Grid.Row="2" Grid.Column="1" Margin="3">
+            <TextBox Grid.Row="3" Grid.Column="1" Margin="3">
                 <TextBox.Text>
                     <Binding Path="SelectedItem.Tagestarif">
                         <Binding.ValidationRules>
@@ -73,7 +94,7 @@
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-                    <TextBox Grid.Row="3" Grid.Column="1" Margin="3" Visibility="{Binding SelectedItem.AutoKlasse, Converter={StaticResource BasistarifVisibilityConverter}, Mode=TwoWay}">
+                    <TextBox Grid.Row="4" Grid.Column="1" Margin="3" Visibility="{Binding SelectedItem.AutoKlasse, Converter={StaticResource BasistarifVisibilityConverter}, Mode=TwoWay}">
                 <TextBox.Text>
                     <Binding Path="SelectedItem.Basistarif">
                         <Binding.ValidationRules>
@@ -82,24 +103,12 @@
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <ScrollViewer Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="5,0,0,0" HorizontalScrollBarVisibility="Auto"  VerticalScrollBarVisibility="Auto">
+            <ScrollViewer Grid.Row="5" Grid.ColumnSpan="2" Margin="5,0,0,0" HorizontalScrollBarVisibility="Auto"  VerticalScrollBarVisibility="Auto">
                 <TextBlock Text="{Binding ErrorText}" Foreground="Red"/>
             </ScrollViewer>
         </Grid>
-        <DataGrid Grid.Row="1"
-                      Name="CarDataGrid" IsSynchronizedWithCurrentItem="True" AutoGenerateColumns="False"
-                      SelectionMode="Single" IsReadOnly="True" GridLinesVisibility="None" SelectionUnit="FullRow"
-                      CanUserResizeRows="False"
-                      ItemsSource="{Binding Items}" 
-                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Type" Binding="{Binding AutoKlasse}" />
-                <DataGridTextColumn Header="Brand" Binding="{Binding Marke}" />
-                <DataGridTextColumn Header="Day Rate" Binding="{Binding Tagestarif}" />
-                <DataGridTextColumn Header="Base Rate" Binding="{Binding Basistarif}" />
-            </DataGrid.Columns>
-        </DataGrid>
-        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2">
+        <!--Buttons-->
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="2">
             <Button Content="Delete" Margin="1" Click="Delete_Click"/>
             <Button Content="Save" Margin="1" Command="{Binding SaveCommand}"/>
             <Button Content="New" Margin="1" Command="{Binding NewCommand}"/>
