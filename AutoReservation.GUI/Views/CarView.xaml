@@ -94,7 +94,7 @@
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-                    <TextBox Grid.Row="4" Grid.Column="1" Margin="3" Visibility="{Binding SelectedItem.AutoKlasse, Converter={StaticResource BasistarifVisibilityConverter}, Mode=TwoWay}">
+            <TextBox Grid.Row="4" Grid.Column="1" Margin="3" Visibility="{Binding SelectedItem.AutoKlasse, Converter={StaticResource BasistarifVisibilityConverter}, Mode=TwoWay}">
                 <TextBox.Text>
                     <Binding Path="SelectedItem.Basistarif">
                         <Binding.ValidationRules>
